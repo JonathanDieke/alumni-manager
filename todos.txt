@@ -1,0 +1,12 @@
+- login view (ok)
+- login logic (ok)
+- admin home view
+- admin home logic
+- admin form to add/edit alumnus view 
+- admin form to add/edit alumnus logic 
+- admin offers view 
+- admin offers logic 
+- alumni annuaire view 
+- alumni annuaire logic 
+- alumni offers view
+- alumni offers logic 
