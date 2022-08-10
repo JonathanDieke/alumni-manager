@@ -18,6 +18,17 @@
                         </h5>
                     </div>
 
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+
                     <div>
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
@@ -39,6 +50,12 @@
                                                 required autocomplete="current-password" />
                             </div>
 
+                            <!-- Is Admin -->
+                            {{-- <label for="is_admin" class="inline-flex relative items-center mb-5 cursor-pointer">
+                                <input type="checkbox" value="off" id="is_admin" class="sr-only peer" name="is_admin">
+                                <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                                <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Small toggle</span>
+                            </label> --}}
                             <!-- Remember Me -->
                             <div class="block mt-4">
                                 <label for="remember_me" class="inline-flex items-center">

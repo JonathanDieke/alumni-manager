@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AdminAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +23,14 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+
+
+Route::middleware('admin')->group(function() {
+    Route::get('/admin/dashboard', function(){
+        return view("auth.admin.dashboard");
+    });
+
+    Route::post("admin/logout", [AdminAuthController::class, "destroy"])
+                ->name('admin.logout');
+
+});

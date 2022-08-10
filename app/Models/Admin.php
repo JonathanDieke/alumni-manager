@@ -2,20 +2,35 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-
-use App\Traits\HasUUID;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-// use Laravel\Sanctum\HasApiTokens;
+use App\Traits\HasUUID;
 
-class User extends Authenticatable
+class Admin extends Authenticatable
 {
     use HasFactory, Notifiable, HasUUID;
 
+    /**
+     * Indicates if the model's ID is auto-incrementing.
+     *
+     * @var bool
+     */
     public $incrementing = false;
+
+    /**
+     * The data type of the auto-incrementing ID.
+     *
+     * @var string
+     */
     protected $keyType = 'string';
+
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table= 'admins';
 
     /**
      * The attributes that are mass assignable.
@@ -23,8 +38,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'lname',
-        'name',
         'email',
         'password',
     ];
@@ -37,14 +50,5 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
     ];
 }
