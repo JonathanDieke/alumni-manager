@@ -14,14 +14,13 @@ class AdminAlumniComponent extends Component
 
     public $query = "";
     public $modalIsOpen = false;
-
     public $alumnus ;
 
     public function mount(){
         // $this->fill(['alumnus' => [],]);
     }
 
-    public $listeners = ["delete", "deleteFromModal"] ;
+    public $listeners = ["delete"];
 
     public function rules(){
         return [
@@ -49,7 +48,6 @@ class AdminAlumniComponent extends Component
 
         session()->flash('message', "Enregistrement réussi !");
         $this->toggleModal();
-
     }
 
     public function edit(User $alumnus){
@@ -62,19 +60,30 @@ class AdminAlumniComponent extends Component
         $this->toggleModal();
     }
 
-    public function deleteFromModal(){
-        $this->alumnus->delete();
-    }
+    // public function deleteFromModal(){
+    //     $this->alumnus->delete();
+    // }
 
     public function resetInputs(){
         $this->alumnus = [];
     }
 
+    public function updatedQuery($a){
+        // dd($a);
+    }
+
     public function render()
     {
-        $alumni = User::paginate(10);
-
-        // dd($alumni);
+        if(!empty($this->query)){
+            $q= "%".$this->query."%" ;
+            $alumni = User::where('name', "like", $q)
+                        ->orWhere("lname", "like", $q)
+                        ->orWhere("email", "like", $q)
+                        ->orderBy('created_at', 'desc')
+                        ->paginate(10);
+        }else{
+            $alumni = User::orderBy('created_at', 'desc')->paginate(10);
+        }
 
         return view('livewire.admin.alumni-component', compact('alumni'))->layout('layouts.admin.app');
     }
