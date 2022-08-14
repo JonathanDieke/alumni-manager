@@ -5,10 +5,12 @@
 - admin form to add/edit alumnus view (ok)
 - admin form to add/edit alumnus logic (ok)
 - admin search view on alumni (ok)
+- tab view pour afficher les détails d'un alumnus
 - admin offers view
 - admin offers logic
 - alumni annuaire view
 - alumni annuaire logic
 - alumni offers view
 - alumni offers logic
+- ajouter les champs de la table users
 - designing all views one after one

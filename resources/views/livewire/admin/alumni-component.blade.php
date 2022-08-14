@@ -57,7 +57,7 @@
                                         {{ $alumnus->email }}
                                     </td>
                                     <td class="py-4 px-6">
-                                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Consulter</a>
+                                        <a href="{{ route('admin.alumnus.details', $alumnus->id) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Consulter</a>
                                         <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" wire:click="edit('{{ $alumnus->id }}')">Editer</a>
                                         <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" onclick="if(confirm('Voulez-vous vraiment retirer cet alumnus ?')) Livewire.emit('delete', {{ $alumnus->id }})">Supprimer</a>
                                     </td>
