@@ -50,7 +50,7 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function academicFormation(): HasMany
+    public function academicFormations(): HasMany
     {
         return $this->hasMany(AcademicFormation::class);
     }

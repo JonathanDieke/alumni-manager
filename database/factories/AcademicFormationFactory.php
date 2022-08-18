@@ -5,6 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\User;
+use Illuminate\Support\Arr;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\AcademicFormation>
@@ -20,9 +21,9 @@ class AcademicFormationFactory extends Factory
     {
         $userId = User::all()->random()->id;
         return [
-            "title" => Str::random(),
+            "name" => Str::random(),
+            "level" => Arr::random(["bac", "bac1", "bac2", "bac3", 'bac4', 'bac5', 'bac6', 'bac7', 'bac8']),
             "school" => Str::random(),
-            "field" => Str::random(),
             "start_year" => $this->faker->dateTimeBetween(startDate: "-10years", endDate:"now"),
             "end_year" => $this->faker->dateTimeBetween(startDate: "-10years", endDate:"now"),
             "user_id" => $userId,

@@ -16,13 +16,13 @@ return new class extends Migration
     {
         Schema::create('academic_formations', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('title');
+            $table->string('name');
+            $table->enum('level', ["bac", "bac1", "bac2", "bac3", 'bac4', 'bac5', 'bac6', 'bac7', 'bac8']);
             $table->string('school');
-            $table->string('field');
             $table->date('start_year');
             $table->date('end_year');
 
-            $table->foreignUuid('user_id');
+            $table->foreignUuid('user_id')->constrained();
 
             $table->timestamps();
             $table->softDeletes();

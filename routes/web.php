@@ -26,7 +26,7 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-Route::middleware('admin')->prefix('admin')->name('admin.')->group(function() {
+Route::middleware(['admin'])->prefix('admin')->name('admin.')->group(function() {
     Route::get('/dashboard', AdminAlumniComponent::class)->name('dashboard');
     // Route::get('/admin/dashboard', function(){
         //     return view("admin.dashboard");
