@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AdminAuthController;
 use App\Http\Livewire\Admin\AdminAlumniComponent;
 use App\Http\Livewire\Admin\AdminAlumnusDetailsComponent;
+use App\Http\Livewire\Admin\AdminOffersComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,9 +30,10 @@ require __DIR__.'/auth.php';
 Route::middleware(['admin'])->prefix('admin')->name('admin.')->group(function() {
     Route::get('/dashboard', AdminAlumniComponent::class)->name('dashboard');
     // Route::get('/admin/dashboard', function(){
-        //     return view("admin.dashboard");
-        // });
+    //     return view("admin.dashboard");
+    // });
     Route::get('/show/users/{user}', AdminAlumnusDetailsComponent::class)->name('alumnus.details');
+    Route::get('/offers',  AdminOffersComponent::class)->name('offers');
 
     Route::post("/logout", [AdminAuthController::class, "destroy"])
                 ->name('logout');
