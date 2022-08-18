@@ -44,5 +44,6 @@ class FormationLevel implements CastsAttributes {
 	 * @return mixed
 	 */
 	function set($model, string $key, $value, array $attributes) {
-	}
+        return $value ;
+    }
 }

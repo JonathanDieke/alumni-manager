@@ -46,12 +46,22 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get all of the academicFormation for the User
+     * Get all of the academic formations for the User
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function academicFormations(): HasMany
     {
         return $this->hasMany(AcademicFormation::class);
+    }
+
+    /**
+     * Get all of the experiences for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function experiences(): HasMany
+    {
+        return $this->hasMany(Experience::class);
     }
 }
