@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('experiences', function (Blueprint $table) {
+        Schema::create('offers', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('title');
+            $table->text('description');
+            $table->enum('type', ["stage", "job"]);
             $table->string('company');
             $table->string('localization');
-            // $table->text('description');
-            $table->date('start_year');
-            $table->date('end_year');
+            $table->date('deadline'); 
 
             $table->foreignUuid('user_id')->constrained();
 
@@ -36,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('experiences');
+        Schema::dropIfExists('offers');
     }
 };

@@ -9,6 +9,8 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        
+        @livewireStyles
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
@@ -19,12 +21,20 @@
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     {{ $header }}
                 </div>
+
             </header>
+            @if(session()->has('message'))
+            <div class="mx-8 my-5 py-3 bg-green-200 rounded-md border-green-800 overflow-hidden text-center text-green-600 shadow">
+                <p>{{ session("message") }}</p>
+            </div>
+            @endif
 
             <!-- Page Content -->
             <main>
                 {{ $slot }}
             </main>
         </div>
+        
+        @livewireScripts
     </body>
 </html>

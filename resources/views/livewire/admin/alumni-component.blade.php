@@ -5,12 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="py-5">
-        @if(session()->has('message'))
-        <div class="mx-8 mb-5 py-3  bg-green-100 rounded-md border-green-800 overflow-hidden text-center text-green-500">
-            <p>{{ session("message") }}</p>
-        </div>
-        @endif
+    <div class="py-5"> 
         <div class=" mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-md sm:rounded-lg">
                 <div class="p-8" id="content">
@@ -59,7 +54,7 @@
                                     <td class="py-4 px-6">
                                         <a href="{{ route('admin.alumnus.details', $alumnus->id) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Consulter</a>
                                         <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" wire:click="edit('{{ $alumnus->id }}')">Editer</a>
-                                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" onclick="if(confirm('Voulez-vous vraiment retirer cet alumnus ?')) Livewire.emit('delete', {{ $alumnus->id }})">Supprimer</a>
+                                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" onclick="if(confirm('Voulez-vous vraiment retirer cet alumnus ?')) Livewire.emit('delete', '{{ $alumnus->id }}')">Supprimer</a>
                                     </td>
                                 </tr>
 
@@ -99,7 +94,10 @@
                     <span>close</span>
                 </div> --}}
                 <form>
-                    <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <h1 class="text-center text-lg font-bold uppercase bg-gray-400 p-4">
+                        Créer un alumnus
+                    </h1>
+                    <div class="bg-white px-4 pt-2 pb-4 sm:p-3 sm:pb-2">
                         <div class="grid grid-cols-6 gap-6">
                             <div class="col-span-6 sm:col-span-3">
                                 <x-label for="name" :value="__('Nom :')" />
@@ -141,18 +139,16 @@
                                     {{-- @error('alumnus.password') <span class="text-red-500">{{ $message }}</span>@enderror --}}
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
-                    <div class="bg-gray-200 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <div class="bg-gray-200 px-4 pb-2 sm:px-6 sm:flex sm:flex-row-reverse">
                         <span class="mt-3 flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
-                                <button wire:click.prevent="store" type="button"
-                                class="inline-flex justify-center w-full rounded-md border border-transparent
-                                px-4 py-2 bg-green-600 text-base leading-6 font-medium text-white shadow-sm
-                                hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green transition
-                                ease-in-out duration-150 sm:text-sm sm:leading-5">
-                                Enregistrer
+                            <button wire:click.prevent="store" type="button"
+                            class="inline-flex justify-center w-full rounded-md border border-transparent
+                            px-4 py-2 bg-green-600 text-base leading-6 font-medium text-white shadow-sm
+                            hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green transition
+                            ease-in-out duration-150 sm:text-sm sm:leading-5">
+                            Enregistrer
                             </button>
                         </span>
                         <span class="mt-3 flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
@@ -163,25 +159,7 @@
                             ease-in-out duration-150 sm:text-sm sm:leading-5">
                             Annuler
                             </button>
-                        </span>
-                        {{-- <span class="mt-3 flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
-                            <button onclick="if(confirm('Voulez-vous vraiment retirer cet alumnus ?')) Livewire.emit('deleteFromModal')" type="button"
-                            class="inline-flex justify-center w-full rounded-md border border-transparent
-                            px-4 py-2 bg-red-600 text-base leading-6 font-medium text-white shadow-sm
-                            hover:bg-red-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red transition
-                            ease-in-out duration-150 sm:text-sm sm:leading-5">
-                            Supprimer
-                            </button>
-                        </span> --}}
-                        {{-- <span class="mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto">
-                            <button wire:click.prevent="toggleModal" type="button"
-                            class="inline-flex justify-center w-full rounded-md border border-gray-300 px-4
-                            py-2 bg-red-400 text-base leading-6 font-medium text-white shadow-sm
-                            hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue
-                            transition ease-in-out duration-150 sm:text-sm sm:leading-5">
-                                Supprimer
-                            </button>
-                        </span> --}}
+                        </span> 
                     </div>
                 </form>
             </div>

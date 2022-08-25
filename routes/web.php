@@ -5,6 +5,8 @@ use App\Http\Controllers\Auth\AdminAuthController;
 use App\Http\Livewire\Admin\AdminAlumniComponent;
 use App\Http\Livewire\Admin\AdminAlumnusDetailsComponent;
 use App\Http\Livewire\Admin\AdminOffersComponent;
+use App\Http\Livewire\Alumni\AlumniOffersComponent;
+use App\Http\Livewire\Alumni\ProfessionalDirectoryComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,10 +23,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::middleware(['auth'])->prefix('alumni')->name('alumni.')->group(function() {
 
+    Route::get('/professional-directory', ProfessionalDirectoryComponent::class)
+            ->name("professional-directory");
+
+    Route::get('/offers/{user?}',  AlumniOffersComponent::class)
+            ->name('offers');
+
+    Route::get('/{user}/offers/show',  AlumniOffersComponent::class)
+            ->name('my-offers');
+});
 require __DIR__.'/auth.php';
 
 Route::middleware(['admin'])->prefix('admin')->name('admin.')->group(function() {

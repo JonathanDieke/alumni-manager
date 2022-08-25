@@ -14,7 +14,7 @@
                     <span class="text-sm underline">Entreprise</span> <span class="text-sm">:</span> <span class="font-semibold"> {{ $experience->company }}</span>
                 </div>
                 <div>
-                    <span class="text-sm underline">Localisation</span> <span class="text-sm">:</span> <span class="font-semibold"> {{ $experience->location }}</span>
+                    <span class="text-sm underline">Localisation</span> <span class="text-sm">:</span> <span class="font-semibold"> {{ $experience->localization }}</span>
                 </div>
                 <div>
                     <span class="text-sm underline">Période</span> <span class="text-sm">:</span> <span class="font-semibold"> {{ explode("-", $experience->start_year)[0] . "/" . explode("-", $experience->end_year)[0] }}</span>

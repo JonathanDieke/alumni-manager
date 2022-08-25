@@ -64,4 +64,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Experience::class);
     }
+
+    /**
+     * Get all of the offers for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function offers(): HasMany
+    {
+        return $this->hasMany(Offer::class);
+    }
 }

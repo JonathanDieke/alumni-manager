@@ -9,16 +9,11 @@ use Livewire\WithPagination;
 
 class AdminAlumniComponent extends Component
 {
-
     use WithPagination ;
 
     public $query = "";
     public $modalIsOpen = false;
     public $alumnus ;
-
-    public function mount(){
-        // $this->fill(['alumnus' => [],]);
-    }
 
     public $listeners = ["delete"];
 
@@ -44,9 +39,14 @@ class AdminAlumniComponent extends Component
     public function store(){
         $data = $this->validate();
 
-        User::create($data['alumnus']);
+        if($this->alumnus instanceof User){
+            $this->alumnus->update($data["alumnus"]);
+            session()->flash('message', "Mise à jour réussie !");
+        }else{
+            User::create($data['alumnus']);
+            session()->flash('message', "Enregistrement réussi !");
+        }
 
-        session()->flash('message', "Enregistrement réussi !");
         $this->toggleModal();
     }
 
@@ -60,16 +60,8 @@ class AdminAlumniComponent extends Component
         $this->toggleModal();
     }
 
-    // public function deleteFromModal(){
-    //     $this->alumnus->delete();
-    // }
-
     public function resetInputs(){
         $this->alumnus = [];
-    }
-
-    public function updatedQuery($a){
-        // dd($a);
     }
 
     public function render()
