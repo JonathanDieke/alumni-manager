@@ -10,8 +10,9 @@
 - alumni annuaire logic (ok)
 - alumni offers view (ok)
 - alumni offers logic (ok)
+- alumnus details view (ok)
 - ajouter les champs de la table users
-- faire le blog 
-- designing all views one after one and do its as responsive as possible 
+- faire le blog
+- designing all views one after one and do its as responsive as possible
 - admin offers view
 - admin offers logic

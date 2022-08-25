@@ -7,7 +7,7 @@
 
     <div class="border-2 border-gray-200 shadow bg-white w-fit mx-auto my-3">
         <h1 class="text-center font-bold uppercase">{{ $count }} offre(s) d'emplois et de stages au total</h1>
-        <div class="flex justify-around my-3 gap-4 px-3" >  
+        <div class="flex justify-around my-3 gap-4 px-3" >
             @if(!empty($this->alumnus->toArray()))
             <button class="bg-blue-600 rounded-md shadow-lg px-1 text-sm text-white hover:bg-blue-500" wire:click="create">Ajouter une offre</button>
             @endif
@@ -23,7 +23,7 @@
                 </x-select>
             </div>
         </div>
-    </div> 
+    </div>
 
     <div class="flex container justify-center">
         {{ $offers->links() }}
@@ -37,7 +37,7 @@
                     <div class=" flex-1 ">
                         <h1 class=" md:text-lg font-bold mb-2 ">{{ $offer->title }}</h1>
                         <p class="pr-3">
-                            {{ $offer->description }}  
+                            {{ $offer->description }}
                         </p>
                     </div>
                     <div class="flex-none justify-items-end border rounded shadow bg-{{ $offer->type == 'stage' ? 'red' : 'green' }}-500 text-white h-fit px-1 text-sm">
@@ -65,18 +65,18 @@
             </div>
             @if(!empty($alumnus->toArray()))
             <div class="flex flex-col justify-center mx-2 px-2 gap-2">
-                <a href="#" class="underline text-green-400" wire:click="edit('{{ $offer->id }}')">Editer</a> 
+                <a href="#" class="underline text-green-400" wire:click="edit('{{ $offer->id }}')">Editer</a>
                 <a href="#" class="underline text-red-400" onclick="if(confirm('Voulez-vous vraiment retirer cette offre ?')) Livewire.emit('delete', '{{ $offer->id }}')">Supprimer</a>
             </div>
             @endif
-        </div>          
+        </div>
         @endforeach
         <div class="flex container justify-center py-3">
             {{ $offers->links() }}
         </div>
     @else
     <p class="text-center mt-3">Aucune donnée trouvée</p>
-    @endif 
+    @endif
 
     @if ($modalIsOpen && !empty($alumnus->toArray()))
     <div class="fixed z-10 inset-0 ease-out duration-400 ">
@@ -131,7 +131,7 @@
                             </div>
                         </div>
                         <div>
-                            <x-label for="description" :value="__('Description :')" />  
+                            <x-label for="description" :value="__('Description :')" />
                             <textarea id="description" rows="4" class="block w-full text-sm rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"  wire:model.defer="offer.description" required placeholder="Description du profil recherché...">
                             </textarea>
                             @error('offer.description') <span class="text-red-500">{{ $message }}</span>@enderror
@@ -155,7 +155,7 @@
                             ease-in-out duration-150 sm:text-sm sm:leading-5">
                             Annuler
                             </button>
-                        </span> 
+                        </span>
                     </div>
                 </form>
             </div>

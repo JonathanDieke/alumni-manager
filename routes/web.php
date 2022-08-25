@@ -5,8 +5,9 @@ use App\Http\Controllers\Auth\AdminAuthController;
 use App\Http\Livewire\Admin\AdminAlumniComponent;
 use App\Http\Livewire\Admin\AdminAlumnusDetailsComponent;
 use App\Http\Livewire\Admin\AdminOffersComponent;
+use App\Http\Livewire\Alumni\AlumniAlumnusDetails;
 use App\Http\Livewire\Alumni\AlumniOffersComponent;
-use App\Http\Livewire\Alumni\ProfessionalDirectoryComponent;
+use App\Http\Livewire\Alumni\ProfessionalDirectoryComponent; 
 
 /*
 |--------------------------------------------------------------------------
@@ -23,10 +24,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+require __DIR__.'/auth.php';
+
 Route::middleware(['auth'])->prefix('alumni')->name('alumni.')->group(function() {
 
     Route::get('/professional-directory', ProfessionalDirectoryComponent::class)
             ->name("professional-directory");
+
+    Route::get('/professional-directory/show/{user}', AlumniAlumnusDetails::class)->name('alumnus.details');
 
     Route::get('/offers/{user?}',  AlumniOffersComponent::class)
             ->name('offers');
@@ -34,7 +39,6 @@ Route::middleware(['auth'])->prefix('alumni')->name('alumni.')->group(function()
     Route::get('/{user}/offers/show',  AlumniOffersComponent::class)
             ->name('my-offers');
 });
-require __DIR__.'/auth.php';
 
 Route::middleware(['admin'])->prefix('admin')->name('admin.')->group(function() {
     Route::get('/dashboard', AdminAlumniComponent::class)->name('dashboard');

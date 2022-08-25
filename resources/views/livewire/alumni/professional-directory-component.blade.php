@@ -28,7 +28,7 @@
                 <h3>Contact : +225 01 53 XX XX XX</h3>
             </div>
             <div class="flex justify-end px-5 ">
-                <a href="#" class="bg-indigo-600 px-3 rounded shadow hover:bg-indigo-500">Détails</a>
+                <a href="{{ route('alumni.alumnus.details', $alumnus) }}" class="bg-indigo-600 px-3 rounded shadow hover:bg-indigo-500">Détails</a>
             </div>
         </div>
         @endforeach
