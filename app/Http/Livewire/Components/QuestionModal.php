@@ -10,13 +10,34 @@ class QuestionModal extends Component
 {
     public $showEditButton ;
     public $questionModalIsOpen = false ;
-    public $question ;
+    public $question, $questionEditing ;
 
-    public function mount($showEditButton = false){
-        $this->showEditButton = $showEditButton ;
+    public $listeners = ['takeCurrentQuestion'];
+
+    public function mount(?Question $questionEditing){
+        $this->questionEditing = $questionEditing ;
+    }
+
+    public function isOwnerofQuestion() {
+        return $this->questionEditing ? Auth::id() === $this->questionEditing->user->id : false ;
     }
 
     public function toggleQuestionModalCreate(){
+        $this->reinitializeInputs();
+        $this->questionModalIsOpen = !$this->questionModalIsOpen ;
+    }
+
+    public function toggleQuestionModalEdit(){
+        // $this->emit('getCurrentQuestion');
+        $this->question = $this->questionEditing->toArray() ;
+        $this->questionModalIsOpen = !$this->questionModalIsOpen ;
+
+        // dd($this->question);
+    }
+
+    public function takeCurrentQuestion($question){
+        $this->question = $question ;
+        // dd($this->question);
         $this->questionModalIsOpen = !$this->questionModalIsOpen ;
     }
 
@@ -38,7 +59,6 @@ class QuestionModal extends Component
 
         $this->toggleQuestionModalCreate();
         $this->emitUp("refreshParent");
-
     }
 
     public function render()

@@ -1,6 +1,6 @@
 <div>
     <div class="flex justify-between gap-4">
-        @if($showEditButton)
+        @if($showEditButton && $this->isOwnerOfQuestion())
         <button wire:click="toggleQuestionModalEdit" class="bg-amber-400 rounded-sm shadow-sm rounded-t rounded-b-sm px-3 py-1 hover:bg-amber-300"    >
             Editer
         </button>
@@ -91,5 +91,23 @@
         </div>
     </div>
     @endif
+
+    @push('scripts')
+    <script>
+        ClassicEditor.create( $('#text-editor-q'), {
+            removePlugins: [ 'Heading'],
+            toolbar: [ 'bold', 'italic', 'bulletedList', 'numberedList' ]
+        } )
+        .then( editor => {
+            editor.model.document.on('change:data', () => {
+                let description = $("#text-editor-q").data('description')
+                eval(description).set('question.description', editor.getData())
+            })
+        } )
+        .catch( error => {
+            console.error("ERROR CKEditor de question ==>\n",error.message );
+        });
+    </script>
+    @endpush
 
 </div>

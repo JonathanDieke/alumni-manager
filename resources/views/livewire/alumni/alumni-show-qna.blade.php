@@ -9,7 +9,7 @@
                 <h1 class="text-lg leading-3 mb-1 font-semibold hover:cursor-pointer ">
                     {{ $question->title }}
                 </h1>
-                <livewire:components.question-modal showEditButton=true />
+                <livewire:components.question-modal showEditButton=true :questionEditing="$question" />
             </div>
 
             {{-- <span class="text-sm mr-3">Crée le {{ $question->created_at->isoFormat("L") }}</span> --}}
@@ -52,10 +52,17 @@
             @forelse ($answers as $answer)
             <div class="pl-5 md:pr-10">
                 <div class="text-">
-                    {{ $answer->answer }}
+                    {!! $answer->answer !!}
                 </div>
-                <div class="text-xs flex justify-end">
-                    <div class="flex ">
+                <div class="flex justify-between text-xs">
+                    <div class="flex items-end">
+                        @if($this->isOwnerOfAnswer($answer->user->id))
+                        <span onclick="if(confirm('Voulez-vous supprimer cette réponse ?')) Livewire.emit('deleteAnswer', '{{ $answer->id }}')" class="text-red-400 hover:cursor-pointer">
+                            supprimer
+                        </span>
+                        @endif
+                    </div>
+                    <div >
                         <span class="text-blue-400 pr-2">{{ $answer->user->name }}, </span>
                         <div class="text-gray-500"> Répondu {{ $answer->created_at->diffForHumans() }} </div>
                     </div>

@@ -42,10 +42,7 @@
         <script type="text/javascript">
 
             $(() => {
-                ClassicEditor.create( document.getElementById('text-editor-question'), {
-                    removePlugins: [ 'Heading'],
-                    toolbar: [ 'bold', 'italic', 'bulletedList', 'numberedList' ]
-                } )
+                ClassicEditor.create( $('#text-editor-question'))
                 .then( editor => {
                     editor.model.document.on('change:data', () => {
                         let description = $(".text-editor-question").data('description')
@@ -53,8 +50,10 @@
                     })
                 } )
                 .catch( error => {
-                    console.error( "ERROR au niveau de CKEditor ",error );
-                } );
+                    console.error("ERROR CKEditor de question ==>\n",error );
+                });
+
+
                 ClassicEditor
                 .create( document.getElementById('text-editor-answer'), {
                     removePlugins: [ 'Heading'],
@@ -67,8 +66,8 @@
                     })
                 } )
                 .catch( error => {
-                    console.error( "ERROR au niveau de CKEditor ",error );
-                } );
+                    console.error("ERROR CKEditor de answer ==>\n",error );
+                });
             })
         </script>
         @livewireScripts

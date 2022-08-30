@@ -13,7 +13,7 @@ class AlumniShowQna extends Component
     public $questionModalIsOpen = false ;
     public $question, $answer ;
 
-    public $listeners = ['refresh' => '$refresh'] ;
+    public $listeners = ['refresh' => '$refresh', 'deleteAnswer', 'getCurrentQuestion'] ;
 
     public function mount(Question $question){
         $this->question = $question;
@@ -24,8 +24,6 @@ class AlumniShowQna extends Component
             "answer" => ['required', 'min:3']
         ]);
 
-        // dd($data);
-
         $data['user_id'] = Auth::id();
         $data['question_id'] = $this->question->id;
 
@@ -35,6 +33,19 @@ class AlumniShowQna extends Component
 
         $this->emit("refresh");
         session()->flash('message', "Réponse postée !");
+    }
+
+    public function deleteAnswer(Answer $answer){
+        $answer->delete();
+        $this->emit('refresh');
+    }
+
+    public function isOwnerOfAnswer($answerUserId) {
+        return Auth::id() === $answerUserId ;
+    }
+
+    public function getCurrentQuestion(){
+        $this->emit('takeCurrentQuestion', $this->question);
     }
 
     public function render()
