@@ -23,9 +23,9 @@ class ExperienceFactory extends Factory
         return [
             'title' => Str::random(),
             'company' => Str::random(),
-            'location' => Str::random(),
-            "start_year" => $this->faker->dateTimeBetween(startDate: "-10years", endDate:"now"),
-            "end_year" => $this->faker->dateTimeBetween(startDate: "-10years", endDate:"now"),
+            'localization' => Str::random(),
+            "start_date" => $this->faker->dateTimeBetween(startDate: "-10years", endDate:"now"),
+            "end_date" => $this->faker->dateTimeBetween(startDate: "-10years", endDate:"now"),
             "user_id" => $userId,
         ];
     }

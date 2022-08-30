@@ -9,7 +9,9 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-        
+
+        <script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/classic/ckeditor.js"></script>
+
         @livewireStyles
     </head>
     <body class="font-sans antialiased">
@@ -23,7 +25,7 @@
                 </div>
 
             </header>
-            @if(session()->has('message'))
+            @if(session()->has('message') )
             <div class="mx-8 my-5 py-3 bg-green-200 rounded-md border-green-800 overflow-hidden text-center text-green-600 shadow">
                 <p>{{ session("message") }}</p>
             </div>
@@ -34,7 +36,43 @@
                 {{ $slot }}
             </main>
         </div>
-        
+
+        <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js" integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
+        {{-- <script src="{{ asset('assets/js/ckeditor.js') }}"></script> --}}
+        <script type="text/javascript">
+
+            $(() => {
+                ClassicEditor.create( document.getElementById('text-editor-question'), {
+                    removePlugins: [ 'Heading'],
+                    toolbar: [ 'bold', 'italic', 'bulletedList', 'numberedList' ]
+                } )
+                .then( editor => {
+                    editor.model.document.on('change:data', () => {
+                        let description = $(".text-editor-question").data('description')
+                        eval(description).set('question.description', editor.getData())
+                    })
+                } )
+                .catch( error => {
+                    console.error( "ERROR au niveau de CKEditor ",error );
+                } );
+                ClassicEditor
+                .create( document.getElementById('text-editor-answer'), {
+                    removePlugins: [ 'Heading'],
+                    toolbar: [ 'bold', 'italic', 'bulletedList', 'numberedList' ]
+                } )
+                .then( editor => {
+                    editor.model.document.on('change:data', () => {
+                        let answer = $("#text-editor-answer").data('answer')
+                        eval(answer).set('answer', editor.getData())
+                    })
+                } )
+                .catch( error => {
+                    console.error( "ERROR au niveau de CKEditor ",error );
+                } );
+            })
+        </script>
         @livewireScripts
+
+        @stack('scripts')
     </body>
 </html>

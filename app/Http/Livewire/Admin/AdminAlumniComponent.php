@@ -23,6 +23,11 @@ class AdminAlumniComponent extends Component
             "alumnus.lname" => ["required", "string", "min:3"],
             "alumnus.email" => ["required", "email"],
             "alumnus.gender" => ["required", "in:male,female"],
+            "alumnus.birthdate" => ["required", "date", 'before_or_equal:now'],
+            "alumnus.job" => ["required", "string"],
+            "alumnus.company" => ["required", "string"],
+            "alumnus.tel" => ["required", "string", "numeric"],
+            "alumnus.promotion" => ["required", "string"],
             "alumnus.password" => ['required', 'confirmed', Password::default()],
         ];
     }

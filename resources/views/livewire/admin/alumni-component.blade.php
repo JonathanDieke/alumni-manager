@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="py-5"> 
+    <div class="py-5">
         <div class=" mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-md sm:rounded-lg">
                 <div class="p-8" id="content">
@@ -129,6 +129,47 @@
                             </div>
                             <div class="grid grid-cols-6 gap-6">
                                 <div class="col-span-6 sm:col-span-3">
+                                    <x-label for="birthdate" :value="__('Date d\'anniversaire :')" />
+                                    <x-input  id="birthdate" class="block mt-1 w-full" type="date" name="birthdate" required wire:model.defer="alumnus.birthdate"/>
+                                    @error('alumnus.birthdate') <span class="text-red-500">{{ $message }}</span>@enderror
+                                </div>
+                                <div class="col-span-6 sm:col-span-3">
+                                    <x-label for="job" :value="__('Poste :')" />
+                                    <x-input  id="job" class="block mt-1 w-full" type="text" name="job" required wire:model.defer="alumnus.job"/>
+                                    @error('alumnus.job') <span class="text-red-500">{{ $message }}</span>@enderror
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-6 gap-6">
+                                <div class="col-span-6 sm:col-span-3">
+                                    <x-label for="company" :value="__('Entreprise :')" />
+                                    <x-input  id="company" class="block mt-1 w-full" type="text" name="company" required wire:model.defer="alumnus.company"/>
+                                    @error('alumnus.company') <span class="text-red-500">{{ $message }}</span>@enderror
+                                </div>
+                                <div class="col-span-6 sm:col-span-3">
+                                    <x-label for="tel" :value="__('Téléphone :')" />
+                                    <x-input  id="tel" class="block mt-1 w-full" type="text" name="tel" required wire:model.defer="alumnus.tel"/>
+                                    @error('alumnus.tel') <span class="text-red-500">{{ $message }}</span>@enderror
+                                </div>
+                            </div>
+                            <div class="w-full">
+                                <x-label for="promotion" :value="__('Promotion :')" />
+                                <x-select wire:model.defer="alumnus.promotion">
+                                    <option selected >---</option>
+                                    <option value="it1">IT 1</option>  
+                                    <option value="it2">IT 2</option>  
+                                    <option value="it3">IT 3</option>  
+                                    <option value="it4">IT 4</option>  
+                                    <option value="it5">IT 5</option>  
+                                    <option value="it6">IT 6</option>  
+                                    <option value="it7">IT 7</option>  
+                                    <option value="it8">IT 8</option>  
+                                    <option value="it9">IT 9</option>  
+                                    <option value="it10">IT 10</option>  
+                                </x-selet>
+                                @error('alumnus.promotion') <span class="text-red-500">{{ $message }}</span>@enderror
+                            </div>
+                            <div class="grid grid-cols-6 gap-6">
+                                <div class="col-span-6 sm:col-span-3">
                                     <x-label for="password" :value="__('Mot de passe :')" />
                                     <x-input  id="password" class="block mt-1 w-full" type="password" name="password" :value="old('password')" required wire:model.defer="alumnus.password"/>
                                     @error('alumnus.password') <span class="text-red-500">{{ $message }}</span>@enderror
@@ -159,7 +200,7 @@
                             ease-in-out duration-150 sm:text-sm sm:leading-5">
                             Annuler
                             </button>
-                        </span> 
+                        </span>
                     </div>
                 </form>
             </div>

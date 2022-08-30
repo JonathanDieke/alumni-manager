@@ -11,6 +11,10 @@ class ProfessionalDirectoryComponent extends Component
     use WithPagination ;
     public $query = "" ;
 
+    public function updatedQuery(){
+        dd($this->query);
+    }
+
     public function render()
     {
         if(!empty($this->query)){ 

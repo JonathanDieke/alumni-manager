@@ -10,5 +10,7 @@
         </div>
     </x-slot>
 
-    <livewire:components.alumnus-details :user="$alumnus"/>
+    <livewire:components.alumnus-details2 :user="$alumnus"/>
+
+    
 </div>

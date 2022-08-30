@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Str;
 
 class AcademicFormation extends Model
 {
@@ -26,6 +27,11 @@ class AcademicFormation extends Model
     protected $casts = [
         'level' => FormationLevel::class,
     ];
+
+    public function getLevel(){
+        return strlen($this->level) > 3 ? "Bac +" . $this->level[-1] : "Baccalauréat";
+        // return Str::contains($this->level, ['1', '2', "3", '4', '5', '6', '7', '8',]) ? "Bac +" . $this->level[-1] : "Baccalauréat";
+    }
 
     /**
      * Get the user that owns the AcademicFormation

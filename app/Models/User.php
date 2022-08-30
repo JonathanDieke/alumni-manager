@@ -43,7 +43,13 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        // 'birthdate' => 'date',
+        // 'created_at' => 'date',
     ];
+
+    public function getPromotion(){
+        return strtoupper(substr($this->promotion, 0, 2)) . ' ' . $this->promotion[-1] ;
+    }
 
     /**
      * Get all of the academic formations for the User
@@ -73,5 +79,25 @@ class User extends Authenticatable
     public function offers(): HasMany
     {
         return $this->hasMany(Offer::class);
+    }
+
+    /**
+     * Get all of the questions for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function questions(): HasMany
+    {
+        return $this->hasMany(Question::class);
+    }
+
+    /**
+     * Get all of the asnwers for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function asnwers(): HasMany
+    {
+        return $this->hasMany(Answer::class);
     }
 }

@@ -12,6 +12,7 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+
                     <x-nav-link :href="route('alumni.professional-directory')" :active="request()->routeIs('alumni.professional-directory')">
                         {{ __('Annuaire') }}
                     </x-nav-link>
@@ -37,6 +38,9 @@
                             </x-dropdown-link>
                         </x-slot>
                     </x-dropdown>
+                    <x-nav-link :href="route('alumni.qna')" :active="request()->routeIs('alumni.qna')">
+                        {{ __('QNA') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -56,7 +60,7 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('alumni.my-offers', Auth::id())">
+                        <x-dropdown-link :href="route('alumni.profile', Auth::user())">
                             Mon profil
                         </x-dropdown-link>
                         <!-- Authentication -->
@@ -91,11 +95,14 @@
             <x-responsive-nav-link :href="route('alumni.professional-directory')" :active="request()->routeIs('alumni.professional-directory')">
                 {{ __('Annuaire') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link >
+            <x-responsive-nav-link :href="route('alumni.offers')" :active="request()->routeIs('alumni.offers')">
                 {{ __('Toutes les offres') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link >
+            <x-responsive-nav-link :href="route('alumni.my-offers', Auth::id())" :active="request()->routeIs('alumni.my-offers')">
                 {{ __('Mes offres') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('alumni.qna')" :active="request()->routeIs('alumni.qna')">
+                {{ __('QNA') }}
             </x-responsive-nav-link>
         </div>
 
@@ -108,8 +115,8 @@
 
             <div class="mt-3 space-y-1">
                 {{-- user Profile --}}
-                
-                <x-responsive-nav-link >
+
+                <x-responsive-nav-link :href="route('alumni.profile', Auth::user())" >
                     {{ __('Mon profil') }}
                 </x-responsive-nav-link>
                 <!-- Authentication -->

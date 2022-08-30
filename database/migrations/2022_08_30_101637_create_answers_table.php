@@ -13,16 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('experiences', function (Blueprint $table) {
+        Schema::create('answers', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('title');
-            $table->string('company');
-            $table->string('localization');
-            // $table->text('description');
-            $table->date('start_date');
-            $table->date('end_date');
 
+            $table->text('answer');
             $table->foreignUuid('user_id')->constrained();
+            $table->foreignUuid('question_id')->constrained();
 
             $table->timestamps();
             $table->softDeletes();
@@ -36,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('experiences');
+        Schema::dropIfExists('answers');
     }
 };

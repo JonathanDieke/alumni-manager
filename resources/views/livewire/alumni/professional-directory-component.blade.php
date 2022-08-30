@@ -19,7 +19,13 @@
     @if($alumni->count() > 0)
     <div class="grid grid-cols-3 my-4 w-5/6 mx-auto gap-4">
         @foreach ($alumni as $alumnus)
-        <div class="bg-white rounded-md shadow-md pb-2 hover:shadow-lg hover:rounded-b-lg w-5/6">
+        <div class="w-4/5">
+            <a href="{{ route('alumni.alumnus.details', $alumnus) }}">
+                <livewire:components.alumnus-profile-card :alumnus="$alumnus" />
+
+            </a>
+        </div>
+        {{-- <div class="bg-white rounded-md shadow-md pb-2 hover:shadow-lg hover:rounded-b-lg w-5/6">
             <img src="{{ asset('assets/images/login_view.jpg') }}" class="rounded-b-xl h-1/2 w-full">
             <h1 class="text-center text-lg font-bold underline">{{ $alumnus->name . " " . $alumnus->lname }}</h1>
             <div class="my-2 px-4">
@@ -30,7 +36,7 @@
             <div class="flex justify-end px-5 ">
                 <a href="{{ route('alumni.alumnus.details', $alumnus) }}" class="bg-indigo-600 px-3 rounded shadow hover:bg-indigo-500">Détails</a>
             </div>
-        </div>
+        </div> --}}
         @endforeach
     </div>
     <div class="flex container justify-center py-3">

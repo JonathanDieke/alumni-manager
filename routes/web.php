@@ -7,7 +7,10 @@ use App\Http\Livewire\Admin\AdminAlumnusDetailsComponent;
 use App\Http\Livewire\Admin\AdminOffersComponent;
 use App\Http\Livewire\Alumni\AlumniAlumnusDetails;
 use App\Http\Livewire\Alumni\AlumniOffersComponent;
-use App\Http\Livewire\Alumni\ProfessionalDirectoryComponent; 
+use App\Http\Livewire\Alumni\AlumniProfile;
+use App\Http\Livewire\Alumni\AlumniQna;
+use App\Http\Livewire\Alumni\AlumniShowQna;
+use App\Http\Livewire\Alumni\ProfessionalDirectoryComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,21 +34,31 @@ Route::middleware(['auth'])->prefix('alumni')->name('alumni.')->group(function()
     Route::get('/professional-directory', ProfessionalDirectoryComponent::class)
             ->name("professional-directory");
 
-    Route::get('/professional-directory/show/{user}', AlumniAlumnusDetails::class)->name('alumnus.details');
+    Route::get('/professional-directory/show/{user}', AlumniAlumnusDetails::class)
+            ->name('alumnus.details');
 
     Route::get('/offers/{user?}',  AlumniOffersComponent::class)
             ->name('offers');
 
+
     Route::get('/{user}/offers/show',  AlumniOffersComponent::class)
-            ->name('my-offers');
+    ->name('my-offers');
+
+    Route::get('/qna',  AlumniQna::class)
+            ->name('qna');
+
+    Route::get('/qna/show/{question}',  AlumniShowQna::class)
+            ->name('qna.show');
+
+    Route::get('/profile/{user}',  AlumniProfile::class)
+            ->name('profile');
 });
 
 Route::middleware(['admin'])->prefix('admin')->name('admin.')->group(function() {
     Route::get('/dashboard', AdminAlumniComponent::class)->name('dashboard');
-    // Route::get('/admin/dashboard', function(){
-    //     return view("admin.dashboard");
-    // });
+
     Route::get('/show/users/{user}', AdminAlumnusDetailsComponent::class)->name('alumnus.details');
+
     Route::get('/offers',  AdminOffersComponent::class)->name('offers');
 
     Route::post("/logout", [AdminAuthController::class, "destroy"])
