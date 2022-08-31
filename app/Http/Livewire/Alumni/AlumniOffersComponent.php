@@ -6,12 +6,12 @@ use Livewire\Component;
 use App\Models\Offer;
 use Livewire\WithPagination;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Facades\Auth;
 
 class AlumniOffersComponent extends Component
 {
     use WithPagination ;
-    
+
     public $query = "", $filter="stage";
     public $modalIsOpen = false ;
     public $alumnus ;
@@ -19,23 +19,23 @@ class AlumniOffersComponent extends Component
 
     public $listeners = ["delete"];
 
-    public function mount(?User $user){ 
+    public function mount(?User $user){
         $this->alumnus = $user ;
-    }  
+    }
 
     public function rules(){
         return [
-            "offer.title" => ["required", "string", "min:3"], 
-            "offer.description" => ["required", "string", "min:3", "max:256"], 
-            "offer.type" => ["required", "string", "in:job,stage"], 
-            "offer.company" => ["required", "string"], 
-            "offer.localization" => ["required", "string"], 
-            "offer.deadline" => ["required", 'date', 'after_or_equal:now'], 
+            "offer.title" => ["required", "string", "min:3"],
+            "offer.description" => ["required", "string", "min:3", "max:256"],
+            "offer.type" => ["required", "string", "in:job,stage"],
+            "offer.company" => ["required", "string"],
+            "offer.localization" => ["required", "string"],
+            "offer.deadline" => ["required", 'date', 'after_or_equal:now'],
         ];
     }
 
     public function create(){
-        $this->toggleModal(); 
+        $this->toggleModal();
     }
 
     public function toggleModal(){
@@ -58,9 +58,9 @@ class AlumniOffersComponent extends Component
         }else{
             $data['offer']['user_id'] = Auth::id();
             // dd("not working !");
-    
+
             Offer::create($data['offer']);
-    
+
             session()->flash('message', "Enregistrement réussi !");
         }
 
@@ -69,7 +69,7 @@ class AlumniOffersComponent extends Component
 
     public function edit(Offer $offer){
         $this->toggleModal();
-        $this->offer = $offer ; 
+        $this->offer = $offer ;
         $this->offer->deadline = date("Y-m-d", strtotime($this->offer->deadline));
         // $this->offer['deadline'] = explode(" ", $this->offer['deadline'])[0] ;
         // $this->offer['deadline'] = str_replace(search:"-", replace:"/", subject:$this->offer['deadline']);
@@ -77,37 +77,39 @@ class AlumniOffersComponent extends Component
     }
 
     public function delete(Offer $offer){
-        $offer->delete(); 
+        $offer->delete();
     }
 
     public function render()
-    { 
+    {
         $q= "%".$this->query."%" ;
-        if(!empty($this->alumnus->toArray())){  
+        if(!empty($this->alumnus->toArray())){
             $offers =  Offer::where("user_id", Auth::id())
             ->where(function ($query) use ($q){
                 if(!empty($this->query)){
                     $query->where("title", "like", $q)
+                    ->orWhere("id", "like", $q)
                     ->orWhere("description", "like", $q)
                     ->orWhere("company", "like", $q)
                     ->orWhere("localization", "like", $q)
                     ->orderBy('created_at', 'desc');
                 }
             });
-        }else{  
+        }else{
             $offers = Offer::orderBy('created_at', 'desc');
-            if(!empty($this->query)){ 
+            if(!empty($this->query)){
                 $offers = $offers->where("title", "like", $q)
+                ->orWhere("id", "like", $q)
                 ->orWhere("description", "like", $q)
                 ->orWhere("company", "like", $q)
                 ->orWhere("localization", "like", $q)
                 ->orderBy('created_at', 'desc');
             }
         }
-        
+
         $count = $offers->count();
         $offers = $offers->paginate(4);
-        
+
         return view('livewire.alumni.alumni-offers-component', compact('offers', 'count'));
     }
 }
