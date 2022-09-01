@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->uuid("id")->primary();
-            $table->string('name');
+            $table->string('fname');
             $table->string('lname');
             $table->string('email')->unique();
             $table->enum('gender', ['male', 'female']);
             // $table->timestamp('email_verified_at')->nullable();
-            $table->date('birthdate'); 
+            $table->date('birthdate');
             $table->string('job');
             $table->string('company');
             $table->string('promotion');
