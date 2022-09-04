@@ -29,9 +29,9 @@ class AlumniShowQna extends Component
 
         Answer::create($data);
 
-        $this->answer = "";
-
+        
         $this->emit("refresh");
+        $this->dispatchBrowserEvent('clearAnswerInput');
         session()->flash('message', "Réponse postée !");
     }
 
@@ -51,7 +51,7 @@ class AlumniShowQna extends Component
     public function render()
     {
         Carbon::setLocale('fr');
-        $answers = $this->question->answers ;
+        $answers = $this->question->answers->sortByDesc('created_at') ;
 
         return view('livewire.alumni.alumni-show-qna', compact('answers'));
     }

@@ -1,18 +1,19 @@
-<div>
-    <div class="container mx-auto my-5 p-5 h-fit">
+<div >
+    <div class="container mx-auto p-5 h-fit ">
         <div class="md:flex no-wrap md:-mx-2 ">
             <!-- Left Side -->
-            <div class="w-full md:w-3/12 md:mx-2">
+            <div class="w-full md:w-3/12 md:ml-2 md:mr-5">
                 <!-- Profile Card -->
-                <livewire:components.alumnus-profile-card :alumnus="$alumnus" /> 
+                <livewire:components.alumnus-profile-card :alumnus="$alumnus" />
                 <!-- End of profile card -->
                 <div class="my-4"></div>
             </div>
             <!-- End of Left Side -->
 
             <!-- Right Side -->
-            <div class="w-full md:w-9/12 mx-2 h-64">
+            <div class="w-full md:w-9/12  h-full">
                 <!-- Profile tab -->
+
                 <!-- About Section -->
                 <div class="bg-white p-3 shadow-sm rounded-sm">
                     <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
@@ -28,8 +29,8 @@
                     <div class="text-gray-700">
                         <div class="grid md:grid-cols-2 text-sm">
                             <div class="grid grid-cols-2">
-                                <div class="px-4 py-2 font-semibold">Prénoms : </div>
-                                <div class="px-4 py-2">{{ $alumnus->name }}</div>
+                                <div class="px-4 py-2 font-semibold capitalize">Prénoms : </div>
+                                <div class="px-4 py-2">{{ $alumnus->fname }}</div>
                             </div>
                             <div class="grid grid-cols-2">
                                 <div class="px-4 py-2 font-semibold">Nom : </div>
@@ -42,7 +43,7 @@
                             <div class="grid grid-cols-2">
                                 <div class="px-4 py-2 font-semibold">Tel. : </div>
                                 <div class="px-4 py-2">{{ $alumnus->tel }}</div>
-                            </div> 
+                            </div>
                             <div class="grid grid-cols-2">
                                 <div class="px-4 py-2 font-semibold">E-mail : </div>
                                 <div class="px-4 py-2">
@@ -50,7 +51,7 @@
                                 </div>
                             </div>
                             <div class="grid grid-cols-2">
-                                <div class="px-4 py-2 font-semibold">Date d'anniversaire : </div>
+                                <div class="px-4 py-2 font-semibold">Date de naissance : </div>
                                 <div class="px-4 py-2">{{ $alumnus->birthdate }}</div>
                             </div>
                         </div>
@@ -80,7 +81,7 @@
                                 </span>
                                 <span class="tracking-wide">Experiences ({{ $experiences->count() }})</span>
                             </div>
-                            @if($this->isAuthUser()) 
+                            @if($this->isAuthUser())
                             <div class="mb-3">
                                 <button wire:click="toggleXPModal" class="block text-blue-800 text-sm font-semibold rounded bg-gray-300 hover:bg-gray-200 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4">
                                     Ajouter une expérience
@@ -91,7 +92,7 @@
                             <ul class="list-inside space-y-2">
                                 @foreach ($experiences as $xp)
                                 <li class="flex flex-row">
-                                    
+
                                     @if($this->isAuthUser())
                                     <div class="basis-1/2 hover:cursor-pointer" wire:click="editXP({{ $xp }})">
                                         <div class="text-teal-600">{{$xp->title }}</div>
@@ -114,7 +115,7 @@
                             @endif
                         </div>
                         <!-- End Experience -->
-                        
+
                         <!-- Education -->
                         <div>
                             <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
@@ -245,19 +246,19 @@
                             <x-label for="promotion" :value="__('Promotion :')" />
                             <x-select wire:model.defer="alumnus.promotion">
                                 <option selected >---</option>
-                                <option value="it1">IT 1</option>  
-                                <option value="it2">IT 2</option>  
-                                <option value="it3">IT 3</option>  
-                                <option value="it4">IT 4</option>  
-                                <option value="it5">IT 5</option>  
-                                <option value="it6">IT 6</option>  
-                                <option value="it7">IT 7</option>  
-                                <option value="it8">IT 8</option>  
-                                <option value="it9">IT 9</option>  
-                                <option value="it10">IT 10</option>  
+                                <option value="it1">IT 1</option>
+                                <option value="it2">IT 2</option>
+                                <option value="it3">IT 3</option>
+                                <option value="it4">IT 4</option>
+                                <option value="it5">IT 5</option>
+                                <option value="it6">IT 6</option>
+                                <option value="it7">IT 7</option>
+                                <option value="it8">IT 8</option>
+                                <option value="it9">IT 9</option>
+                                <option value="it10">IT 10</option>
                             </x-selet>
                             @error('alumnus.promotion') <span class="text-red-500">{{ $message }}</span>@enderror
-                        </div> 
+                        </div>
                     </div>
                 </div>
                 <div class="bg-gray-200 px-4 pb-2 sm:px-6 sm:flex sm:flex-row-reverse">
@@ -441,7 +442,7 @@
                             ease-in-out duration-150 sm:text-sm sm:leading-5">
                             Enregistrer
                             </button>
-                        </span>                        
+                        </span>
                         <span class="mt-3 flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
                             <button wire:click.prevent="reinitializeFormation" type="button"
                             class="inline-flex justify-center w-full rounded-md border border-transparent

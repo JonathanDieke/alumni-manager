@@ -1,19 +1,20 @@
-<div>
+<div class="pb-10">
     <x-slot name="header">
          <h2 class="uppercase">Questions / Réponses</h2>
     </x-slot>
 
-    <div class="mx-auto container mt-3 bg-white px-10 py-3 rounded shadow">
+    <div class="mx-auto container mt-3 bg-white px-10 py-3 rounded shadow ">
         <div>
             <div class="flex justify-between mt-2">
-                <h1 class="text-lg leading-3 mb-1 font-semibold hover:cursor-pointer ">
+                <h1 class="text-lg leading-3 mb-1 font-semibold hover:cursor-pointer flex-1">
                     {{ $question->title }}
-                </h1>
+                </h1> 
                 <livewire:components.question-modal showEditButton=true :questionEditing="$question" />
             </div>
-
+            
             {{-- <span class="text-sm mr-3">Crée le {{ $question->created_at->isoFormat("L") }}</span> --}}
             <span class="text-sm">Modifié le {{ $question->created_at->isoFormat("L") }}</span>
+            <span class="ml-4 border-2 border-{{ $question->getStatusColor() }}-500 shadow text-{{ $question->getStatusColor() }}-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded w-fit">{{ $question->getStatus() }}</span>
             <hr class="my-2">
         </div>
 
@@ -30,7 +31,7 @@
             <div class="author">
                 De
                 <span class="text-sm text-blue-500">
-                    {{ $question->user->name }},
+                    {{ $question->user->fname }},
                 </span>
                 <span class="text-sm">
                     posé le {{ $question->created_at->isoFormat("LL") }}
@@ -63,7 +64,7 @@
                         @endif
                     </div>
                     <div >
-                        <span class="text-blue-400 pr-2">{{ $answer->user->name }}, </span>
+                        <span class="text-blue-400 pr-2">{{ $answer->user->fname }}, </span>
                         <div class="text-gray-500"> Répondu {{ $answer->created_at->diffForHumans() }} </div>
                     </div>
                 </div>
@@ -174,6 +175,7 @@
     @endif
 
     @push('scripts')
-
+    <script> 
+    </script>
     @endpush
 </div>

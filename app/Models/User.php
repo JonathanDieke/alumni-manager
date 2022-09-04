@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Carbon\Carbon;
 // use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -49,6 +51,30 @@ class User extends Authenticatable
 
     public function getPromotion(){
         return strtoupper(substr($this->promotion, 0, 2)) . ' ' . $this->promotion[-1] ;
+    }
+
+    /**
+     * Get the user's birthdate.
+     *
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    protected function birthdate(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => Carbon::createFromFormat('Y-m-d H:m:s', $value)->isoFormat('LL'),
+        );
+    }
+
+    /**
+     * Get the user's gender.
+     *
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    protected function gender(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => $value == "male" ? "Masculin" : "Féminin",
+        );
     }
 
     /**

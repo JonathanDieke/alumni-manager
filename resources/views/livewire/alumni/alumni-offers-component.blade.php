@@ -5,38 +5,38 @@
         </h2>
     </x-slot>
 
-    <div class="border-2 border-gray-200 shadow bg-white w-fit mx-auto my-3">
-        <h1 class="text-center font-bold uppercase">{{ $count }} offre(s) d'emplois et de stages au total</h1>
-        <div class="flex justify-around my-3 gap-4 px-3" >
+    <div class="border-2 border-gray-200 shadow bg-white md:w-2/3 lg:w-1/2 w-11/12 mx-auto my-3">
+        <h1 class="text-center font-bold uppercase mt-1">{{ $count }} {{ Str::plural('offres', $count) }} d'emplois et de stages au total</h1>
+        <div class="flex justify-center my-2 gap-4 px-3" >
             @if(!empty($this->alumnus->toArray()))
             <button class="bg-blue-600 rounded-md shadow-lg px-1 text-sm text-white hover:bg-blue-500" wire:click="create">Ajouter une offre</button>
             @endif
-            <div>
-                <x-input type="text" placeholder="Rechercher..." wire:model="query" />
-            </div>
-            <div>
-                {{-- <x-label value="Nombre par page" /> --}}
+                <x-input type="text" class="w-full md:w-4/5" placeholder="Rechercher..." wire:model="query" />
+            {{-- <div>
+                <x-label value="Nombre par page" />
                 <x-select wire:model="filter">
                     <option value="">Trier par : </option>
                     <option value="job">Emploi</option>
                     <option value="stage">Stage</option>
                 </x-select>
-            </div>
+            </div> --}}
         </div>
     </div>
 
-    <div class="flex container justify-center">
-        {{ $offers->links() }}
+    <div class="flex container mx-auto justify-center">
+        {{ $offers->links("vendor.pagination.tailwind") }}
     </div>
+    
     @if($count > 0)
+    <div class="container mx-auto border-">
         @foreach ($offers as $offer)
-        <div class="flex justify-center divide-x-2 my-2">
-            <div class="shadow rounded-lg bg-white py-3 px-5 my-5 w-2/3">
+        <div class="flex justify-center mx-auto w-11/12  divide-x-2">
+            <div class="shadow rounded-lg bg-white py-2 px-5 my-2 ">
                 <div class="w-full flex gap-4">
                     <img src="{{ asset('assets/images/offre-d-emploi.png') }}" width="100" height="100" class="flex-none " >
                     <div class=" flex-1 ">
                         <h1 class=" md:text-lg font-bold mb-2 ">{{ $offer->title }}</h1>
-                        <p class="pr-3">
+                        <p class="pr-3 w-full">
                             {{ $offer->description }}
                         </p>
                     </div>
@@ -44,22 +44,23 @@
                         {{ $offer->type == "stage" ? "Stage" : "Emploi" }}
                     </div>
                 </div>
-                <div class="flex justify-between mt-3 w-full">
-                    <div>
-                        <span class="text-sm underline">Réf. :</span>
-                        <span class=text-sm>{{ $offer->id }} </span>
+                {{-- <div class="flex justify-between mt-3 w-full"> --}}
+                <div class="flex flex-col justify-between md:flex-row mt-3 w-full">
+                    <div class="md:flex md:flex-col lg:flex-row lg:gap-1">
+                        <span class="text-xs underline">Réf. : </span>
+                        <span class="text-sm pb-2"> {{ $offer->id }} </span>
                     </div>
-                    <div>
-                        <span class="text-sm underline">Date d'édition :</span>
-                        <span class=text-sm>{{ explode(" ", $offer->created_at)[0] }} </span>
+                    <div class="md:flex md:flex-col lg:flex-row lg:gap-1">
+                        <span class="text-xs underline">Entreprise :</span>
+                        <span class="text-sm uppercase">{{ $offer->company }} </span>
                     </div>
-                    <div>
-                        <span class="text-sm underline">Date limite :</span>
-                        <span class=text-sm>{{ explode(" ", $offer->deadline)[0] }} </span>
+                    <div class="md:flex md:flex-col lg:flex-row lg:gap-1">
+                        <span class="text-xs underline">Lieu :</span>
+                        <span class="text-sm uppercase">{{ $offer->localization }} </span>
                     </div>
-                    <div>
-                        <span class="text-sm underline">Lieu :</span>
-                        <span class=text-sm>{{ $offer->localization }} </span>
+                    <div class="md:flex md:flex-col lg:flex-row lg:gap-1">
+                        <span class="text-xs underline">Date limite :</span>
+                        <span class="text-sm">{{ explode(" ", $offer->deadline)[0] }} </span>
                     </div>
                 </div>
             </div>
@@ -71,8 +72,9 @@
             @endif
         </div>
         @endforeach
-        <div class="flex container justify-center py-3">
-            {{ $offers->links() }}
+    </div>
+        <div class="flex container mx-auto justify-center py-3">
+            {{ $offers->links("vendor.pagination.tailwind") }}
         </div>
     @else
     <p class="text-center mt-3">Aucune donnée trouvée</p>

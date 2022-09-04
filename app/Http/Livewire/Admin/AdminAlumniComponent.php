@@ -80,14 +80,15 @@ class AdminAlumniComponent extends Component
     {
         if(!empty($this->query)){
             $q= "%".$this->query."%" ;
-            $alumni = User::where('fname', "like", Str::upper($q))
-                        ->orWhere("lname", "like", Str::title($q))
+            $alumni = User::where('fname', "like", Str::title($q))
+                        ->orWhere("lname", "like", Str::upper($q))
                         ->orWhere("email", "like", $q)
                         ->orderBy('created_at', 'desc')
                         ->paginate(10);
         }else{
-            $alumni = User::orderBy('created_at', 'desc')->paginate(4);
+            $alumni = User::orderBy('created_at', 'desc')->paginate(10);
         }
+
 
         return view('livewire.admin.alumni-component', compact('alumni'))->layout('layouts.admin.app');
     }

@@ -29,6 +29,10 @@
             </main>
         </div>
 
+        <footer class="bg-gray-100">
+            <x-footer-component/>
+        </footer>
+
         @livewireScripts
     </body>
 </html>

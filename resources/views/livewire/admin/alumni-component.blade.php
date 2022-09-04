@@ -42,7 +42,7 @@
                                     <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $loop->iteration }}
                                     </th>
-                                    <td class="py-4 px-6 upper">
+                                    <td class="py-4 px-6 uppercase">
                                         {{ $alumnus->lname }}
                                     </td>
                                     <td class="py-4 px-6 capitalize">
@@ -77,7 +77,7 @@
                             </tbody>
                         </table>
                         <div class=" my-3 flex justify-center">
-                            {{ $alumni->links() }}
+                            {{ $alumni->links("vendor.pagination.tailwind") }}
                         </div>
                     </div>
 
@@ -89,9 +89,6 @@
                         Pas de données disponibles.
                     </div>
                     @endif
-
-
-
                 </div>
             </div>
         </div>

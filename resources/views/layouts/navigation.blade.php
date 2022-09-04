@@ -12,8 +12,7 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-
-                    <x-nav-link :href="route('alumni.professional-directory')" :active="request()->routeIs('alumni.professional-directory')">
+                    <x-nav-link :href="route('alumni.professional-directory')" :active="request()->routeIs('alumni.professional-directory') || request()->routeIs('alumni.alumnus.details')">
                         {{ __('Annuaire') }}
                     </x-nav-link>
                     <x-dropdown align="left" width="48" class="border-2 border-green-300">
@@ -38,7 +37,7 @@
                             </x-dropdown-link>
                         </x-slot>
                     </x-dropdown>
-                    <x-nav-link :href="route('alumni.qna')" :active="request()->routeIs('alumni.qna')">
+                    <x-nav-link :href="route('alumni.qna')" :active="request()->routeIs('alumni.qna') || request()->routeIs('alumni.qna.show')">
                         {{ __('QNA') }}
                     </x-nav-link>
                 </div>
@@ -49,7 +48,10 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                            <div>{{ Auth::user()->name }}</div>
+                            <div>
+                                <span class="cpitalize">{{ Auth::user()->fname }}</span>
+                                <span class="uppercase">{{ Auth::user()->lname }}</span>
+                            </div>
 
                             <div class="ml-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -92,7 +94,7 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('alumni.professional-directory')" :active="request()->routeIs('alumni.professional-directory')">
+            <x-responsive-nav-link :href="route('alumni.professional-directory')" :active="request()->routeIs('alumni.professional-directory') || request()->routeIs('alumni.alumnus.details')">
                 {{ __('Annuaire') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('alumni.offers')" :active="request()->routeIs('alumni.offers')">
@@ -101,7 +103,7 @@
             <x-responsive-nav-link :href="route('alumni.my-offers', Auth::id())" :active="request()->routeIs('alumni.my-offers')">
                 {{ __('Mes offres') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('alumni.qna')" :active="request()->routeIs('alumni.qna')">
+            <x-responsive-nav-link :href="route('alumni.qna')" :active="request()->routeIs('alumni.qna') || request()->routeIs('alumni.qna.show')">
                 {{ __('QNA') }}
             </x-responsive-nav-link>
         </div>
@@ -109,13 +111,15 @@
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">
-                <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
+                <div class="font-medium text-base text-gray-800">
+                    <span class="cpitalize">{{ Auth::user()->fname }}</span>
+                    <span class="uppercase">{{ Auth::user()->lname }}</span>
+                </div>
                 <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
             </div>
 
             <div class="mt-3 space-y-1">
                 {{-- user Profile --}}
-
                 <x-responsive-nav-link :href="route('alumni.profile', Auth::user())" >
                     {{ __('Mon profil') }}
                 </x-responsive-nav-link>
@@ -126,7 +130,7 @@
                     <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
-                        {{ __('Log Out') }}
+                        {{ __('Déconnexion') }}
                     </x-responsive-nav-link>
                 </form>
             </div>

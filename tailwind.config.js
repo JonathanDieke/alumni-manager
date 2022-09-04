@@ -12,7 +12,7 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Montserrat Alternates'],
+                sans: ['Montserrat'],
                 // sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },
         },

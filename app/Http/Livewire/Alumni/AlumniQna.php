@@ -29,6 +29,7 @@ class AlumniQna extends Component
         }else{
             $questions = Question::orderBy('created_at', 'desc')->paginate(10);
         }
-        return view('livewire.alumni.alumni-qna', compact('questions'));
+        
+        return view('livewire.alumni.alumni-qna', compact('questions'))->layout('layouts.app');
     }
 }

@@ -12,7 +12,6 @@ class QuestionModal extends Component
     public $questionModalIsOpen = false ;
     public $question, $questionEditing ;
 
-    public $listeners = ['takeCurrentQuestion'];
 
     public function mount(?Question $questionEditing){
         $this->questionEditing = $questionEditing ;
@@ -28,18 +27,10 @@ class QuestionModal extends Component
     }
 
     public function toggleQuestionModalEdit(){
-        // $this->emit('getCurrentQuestion');
         $this->question = $this->questionEditing->toArray() ;
         $this->questionModalIsOpen = !$this->questionModalIsOpen ;
 
-        // dd($this->question);
-    }
-
-    public function takeCurrentQuestion($question){
-        $this->question = $question ;
-        // dd($this->question);
-        $this->questionModalIsOpen = !$this->questionModalIsOpen ;
-    }
+    } 
 
     public function reinitializeInputs(){
         $this->question = [];
@@ -48,7 +39,7 @@ class QuestionModal extends Component
     public function storeQuestion(){
         $data = $this->validate([
             "question.title" => ['required', 'string', 'min:3'],
-            "question.description" => ['required', 'string', 'min:3'],
+            "question.description" => ['required', 'string', 'max:3000'],
             "question.status" => ['required', 'in:open,closed,resolved'],
             "question.keywords" => ['nullable', 'string'],
         ]);

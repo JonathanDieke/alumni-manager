@@ -12,8 +12,9 @@ class AlumnusProfileCard extends Component
     public function mount(User $alumnus){
         $this->alumnus = $alumnus;
     }
+
     public function render()
     {
-        return view('livewire.components.alumnus-profile-card');
+        return view('livewire.components.alumnus-profile-card', ["alumnus" => $this->alumnus]);
     }
 }
