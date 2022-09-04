@@ -71,7 +71,7 @@
                             <button wire:click.prevent="reinitializeInputs" type="button"
                             class="inline-flex justify-center w-full rounded-md border border-transparent
                             px-4 py-2 bg-amber-400 text-base leading-6 font-medium text-white shadow-sm
-                            hover:bg-amber-300 focus:outline-none focus:border-green-700 focus:shadow-outline-green transition
+                            hover:bg-amber-300 focus:outline-none focus:border-amber-500 focus:shadow-outline-amber transition
                             ease-in-out duration-150 sm:text-sm sm:leading-5">
                             Réinitialiser
                             </button>

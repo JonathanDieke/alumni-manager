@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    src: url('http://fonts.cdnfonts.com/css/montserrat-alternates');
+    font-family: "Montserrat Alternates";
+}

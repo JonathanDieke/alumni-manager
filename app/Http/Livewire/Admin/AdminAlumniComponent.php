@@ -6,6 +6,7 @@ use Livewire\Component;
 use \App\Models\User;
 use Illuminate\Validation\Rules\Password;
 use Livewire\WithPagination;
+use Illuminate\Support\Str;
 
 class AdminAlumniComponent extends Component
 {
@@ -19,15 +20,15 @@ class AdminAlumniComponent extends Component
 
     public function rules(){
         return [
-            "alumnus.name" => ["required", "string", "min:3"],
+            "alumnus.fname" => ["required", "string", "min:3"],
             "alumnus.lname" => ["required", "string", "min:3"],
             "alumnus.email" => ["required", "email"],
             "alumnus.gender" => ["required", "in:male,female"],
-            "alumnus.birthdate" => ["required", "date", 'before_or_equal:now'],
+            "alumnus.birthdate" => ["required", "date", 'before:'. now()->subYears(10)],
             "alumnus.job" => ["required", "string"],
             "alumnus.company" => ["required", "string"],
             "alumnus.tel" => ["required", "string", "numeric"],
-            "alumnus.promotion" => ["required", "string"],
+            "alumnus.promotion" => ["required", "string", "starts_with:it"],
             "alumnus.password" => ['required', 'confirmed', Password::default()],
         ];
     }
@@ -43,6 +44,12 @@ class AdminAlumniComponent extends Component
 
     public function store(){
         $data = $this->validate();
+        $data['alumnus']['lname'] = Str::upper($data['alumnus']['lname']);
+        $data['alumnus']['fname'] = Str::title($data['alumnus']['fname']);
+        $data['alumnus']['job'] = Str::upper($data['alumnus']['job']);
+        $data['alumnus']['company'] = Str::upper($data['alumnus']['company']);
+
+        // dd($data);
 
         if($this->alumnus instanceof User){
             $this->alumnus->update($data["alumnus"]);
@@ -73,13 +80,13 @@ class AdminAlumniComponent extends Component
     {
         if(!empty($this->query)){
             $q= "%".$this->query."%" ;
-            $alumni = User::where('name', "like", $q)
-                        ->orWhere("lname", "like", $q)
+            $alumni = User::where('fname', "like", Str::upper($q))
+                        ->orWhere("lname", "like", Str::title($q))
                         ->orWhere("email", "like", $q)
                         ->orderBy('created_at', 'desc')
                         ->paginate(10);
         }else{
-            $alumni = User::orderBy('created_at', 'desc')->paginate(10);
+            $alumni = User::orderBy('created_at', 'desc')->paginate(4);
         }
 
         return view('livewire.admin.alumni-component', compact('alumni'))->layout('layouts.admin.app');

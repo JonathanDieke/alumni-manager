@@ -10,8 +10,8 @@
             <div class="bg-white overflow-hidden shadow-md sm:rounded-lg">
                 <div class="p-8" id="content">
                     <div class="grid grid-cols-2 mb-5">
-                        <button>Ajouter un alumnus</button>
-                        <input type="search" name="" id=""/>
+                        <x-button>Ajouter un alumnus</x-button>
+                        <x-input type="search" />
                     </div>
                     <div class="">
                         <table class="table table-light">
@@ -30,7 +30,7 @@
                                     <td>Ange Jo</td>
                                     <td>jo.dieke@mail.ci</td>
                                 </tr>
-                            </tbody> 
+                            </tbody>
                         </table>
                     </div>
                 </div>

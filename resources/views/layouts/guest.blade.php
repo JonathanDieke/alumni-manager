@@ -9,24 +9,14 @@
 
         <!-- Fonts -->
         <style>
-            /* montserrat-regular - latin */
-            @font-face {
-                font-family: 'Montserrat';
-                font-style: normal;
-                font-weight: 400;
-                src: url({{ asset('assets/fonts/montserrat-v25-latin-regular.eot') }}); /* IE9 Compat Modes */
-                src: local(''),
-                    url({{ asset('assets/fonts/montserrat-v25-latin-regular.eot?#iefix') }}) format('embedded-opentype'), /* IE6-IE8 */
-                    url({{ asset('assets/fonts/montserrat-v25-latin-regular.woff2') }}) format('woff2'), /* Super Modern Browsers */
-                    url({{ asset('assets/fonts/montserrat-v25-latin-regular.woff') }}) format('woff'), /* Modern Browsers */
-                    url({{ asset('assets/fonts/montserrat-v25-latin-regular.ttf') }}) format('truetype'), /* Safari, Android, iOS */
-                    url({{ asset('assets/fonts/montserrat-v25-latin-regular.svg#Montserrat') }}x) format('svg'); /* Legacy iOS */
-            }
+            /* montserrat-regular - latin */ 
+            @import url('http://fonts.cdnfonts.com/css/montserrat');
         </style>
 
         <style>
             body {
                 font-family: 'Montserrat';
+
                 /* font-family: 'Nunito', sans-serif; */
             }
         </style>

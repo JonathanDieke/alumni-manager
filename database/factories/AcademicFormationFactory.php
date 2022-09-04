@@ -24,8 +24,8 @@ class AcademicFormationFactory extends Factory
             "name" => Str::random(),
             "level" => Arr::random(["bac", "bac1", "bac2", "bac3", 'bac4', 'bac5', 'bac6', 'bac7', 'bac8']),
             "school" => Str::random(),
-            "start_year" => $this->faker->dateTimeBetween(startDate: "-10years", endDate:"now"),
-            "end_year" => $this->faker->dateTimeBetween(startDate: "-10years", endDate:"now"),
+            "start_date" => $this->faker->dateTimeBetween(startDate: "-10years", endDate:"now"),
+            "end_date" => $this->faker->dateTimeBetween(startDate: "-10years", endDate:"now"),
             "user_id" => $userId,
         ];
     }

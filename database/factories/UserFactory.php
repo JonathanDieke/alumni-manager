@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 /**
@@ -18,14 +19,14 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => fake()->firstName(),
+            'fname' => fake()->firstName(),
             'lname' => fake()->lastName(),
             'email' => fake()->email() , //"user@mail.ci",
             'gender' => "male",
             'birthdate' => fake()->date(max: '-10years'),
             'company' => Str::random(),
             'job' => Str::random(),
-            'promotion' => "it1",
+            'promotion' => Arr::random(['it1', 'it2', 'it3', 'it4', 'it5', 'it6', 'it7', 'it8']) ,
             'tel' => fake()->phoneNumber(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
