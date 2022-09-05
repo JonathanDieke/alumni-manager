@@ -2,47 +2,16 @@
     <x-slot name="header" >
         <h1>Mon Profil</h1>
     </x-slot>
-    <div class="container mx-auto my-5 p-5 h-fit">
+
+    <livewire:components.alumnus-details2 :user="$alumnus"/>
+
+    {{-- <div class="container mx-auto my-5 p-5 h-fit">
         <div class="md:flex no-wrap md:-mx-2 ">
             <!-- Left Side -->
             <div class="w-full md:w-3/12 md:mx-2">
                 <!-- Profile Card -->
                 <livewire:components.alumnus-profile-card :alumnus="$alumnus" />
-                {{-- <div class="bg-white p-3 border-t-4 border-green-400">
-                    <div class="image overflow-hidden">
-                        <img class="h-auto w-full mx-auto"
-                            src="https://lavinephotography.com.au/wp-content/uploads/2017/01/PROFILE-Photography-112.jpg"
-                            alt="">
-                    </div>
-                    <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">{{ $alumnus->name . " " . $alumnus->lname }}</h1>
-                    <h3 class="text-gray-600 font-lg text-semibold leading-6">{{ $alumnus->job }}</h3>
 
-                    <ul class="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm">
-                        <li class="flex items-center py-3">
-                            <span class="text-xs">Poste : </span>
-                            <span class="ml-auto">
-                                <span class="bg-green-500 py-1 px-2 rounded text-white text-sm">Ingénieur dév</span>
-                            </span>
-                        </li>
-                        <li class="flex items-center py-3">
-                            <span class="text-xs">Entreprise : </span>
-                            <span class="ml-auto">
-                                <span class="bg-green-500 py-1 px-2 rounded text-white text-sm">Société Générale</span>
-                            </span>
-                        </li>
-                        <li class="flex items-center py-3">
-                            <span class="text-xs">Promotion : </span>
-                            <span class="ml-auto">
-                                <span class="bg-green-500 py-1 px-2 rounded text-white text-sm">IT 7</span>
-                            </span>
-                        </li>
-
-                        <li class="flex items-center py-3">
-                            <span class="text-xs">Membre :  depuis</span>
-                            <span class="ml-auto">Nov 07, 2016</span>
-                        </li>
-                    </ul>
-                </div> --}}
                 <!-- End of profile card -->
                 <div class="my-4"></div>
             </div>
@@ -81,14 +50,6 @@
                                 <div class="px-4 py-2 font-semibold">Tel. : </div>
                                 <div class="px-4 py-2">{{ $alumnus->tel }}</div>
                             </div>
-                            {{-- <div class="grid grid-cols-2">
-                                <div class="px-4 py-2 font-semibold">Current Address</div>
-                                <div class="px-4 py-2">Beech Creek, PA, Pennsylvania</div>
-                            </div>
-                            <div class="grid grid-cols-2">
-                                <div class="px-4 py-2 font-semibold">Permanant Address</div>
-                                <div class="px-4 py-2">Arlington Heights, IL, Illinois</div>
-                            </div> --}}
                             <div class="grid grid-cols-2">
                                 <div class="px-4 py-2 font-semibold">E-mail : </div>
                                 <div class="px-4 py-2">
@@ -137,7 +98,7 @@
                             <ul class="list-inside space-y-2">
                                 @foreach ($experiences as $xp)
                                 <li class="flex flex-row">
-                                    
+
                                     @if(!empty($alumnus->toArray()))
                                     <div class="basis-1/2 hover:cursor-pointer" wire:click="editXP({{ $xp }})">
                                         <div class="text-teal-600">{{$xp->title }}</div>
@@ -160,7 +121,7 @@
                             @endif
                         </div>
                         <!-- End Experience -->
-                        
+
                         <!-- Education -->
                         <div>
                             <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
@@ -291,31 +252,19 @@
                             <x-label for="promotion" :value="__('Promotion :')" />
                             <x-select wire:model.defer="alumnus.promotion">
                                 <option selected >---</option>
-                                <option value="it1">IT 1</option>  
-                                <option value="it2">IT 2</option>  
-                                <option value="it3">IT 3</option>  
-                                <option value="it4">IT 4</option>  
-                                <option value="it5">IT 5</option>  
-                                <option value="it6">IT 6</option>  
-                                <option value="it7">IT 7</option>  
-                                <option value="it8">IT 8</option>  
-                                <option value="it9">IT 9</option>  
-                                <option value="it10">IT 10</option>  
+                                <option value="it1">IT 1</option>
+                                <option value="it2">IT 2</option>
+                                <option value="it3">IT 3</option>
+                                <option value="it4">IT 4</option>
+                                <option value="it5">IT 5</option>
+                                <option value="it6">IT 6</option>
+                                <option value="it7">IT 7</option>
+                                <option value="it8">IT 8</option>
+                                <option value="it9">IT 9</option>
+                                <option value="it10">IT 10</option>
                             </x-selet>
                             @error('alumnus.promotion') <span class="text-red-500">{{ $message }}</span>@enderror
                         </div>
-                        {{-- <div class="grid grid-cols-6 gap-6">
-                            <div class="col-span-6 sm:col-span-3">
-                                <x-label for="password" :value="__('Mot de passe :')" />
-                                <x-input  id="password" class="block mt-1 w-full" type="password" name="password" required wire:model.defer="alumnus.password"/>
-                                @error('alumnus.password') <span class="text-red-500">{{ $message }}</span>@enderror
-                            </div>
-                            <div class="col-span-6 sm:col-span-3">
-                                <x-label for="password_confirmation" :value="__('Confirmer le mot de passe :')" />
-                                <x-input  id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required wire:model.defer="alumnus.password_confirmation"/>
-                                @error('alumnus.password') <span class="text-red-500">{{ $message }}</span>@enderror
-                            </div>
-                        </div> --}}
                     </div>
                 </div>
                 <div class="bg-gray-200 px-4 pb-2 sm:px-6 sm:flex sm:flex-row-reverse">
@@ -499,7 +448,7 @@
                             ease-in-out duration-150 sm:text-sm sm:leading-5">
                             Enregistrer
                             </button>
-                        </span>                        
+                        </span>
                         <span class="mt-3 flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
                             <button wire:click.prevent="reinitializeFormation" type="button"
                             class="inline-flex justify-center w-full rounded-md border border-transparent
@@ -523,5 +472,5 @@
             </div>
         </div>
     </div>
-    @endif
+    @endif --}}
 </div>

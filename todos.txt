@@ -13,7 +13,7 @@
 - alumnus details view (ok)
 - ajouter les champs de la table users (ok)
 - faire le blog (ok)
-- mon profil à revoir
+- mon profil à revoir 
 - designing all views one after one and do its as responsive as possible ()
 - les dates à bien afficher lors du rendu
 - les mois et année seulement pour certain input de type date

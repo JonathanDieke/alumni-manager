@@ -53,16 +53,9 @@ class User extends Authenticatable
         return strtoupper(substr($this->promotion, 0, 2)) . ' ' . $this->promotion[-1] ;
     }
 
-    /**
-     * Get the user's birthdate.
-     *
-     * @return \Illuminate\Database\Eloquent\Casts\Attribute
-     */
-    protected function birthdate(): Attribute
+    public function getBirthdate()
     {
-        return Attribute::make(
-            get: fn ($value) => Carbon::createFromFormat('Y-m-d H:m:s', $value)->isoFormat('LL'),
-        );
+        return $this->birthdate ? Carbon::createFromFormat('Y-m-d H:m:s', $this->birthdate)->isoFormat('LL') : "1970-01-01" ;
     }
 
     /**

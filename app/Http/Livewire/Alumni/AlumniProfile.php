@@ -13,7 +13,8 @@ class AlumniProfile extends Component
 {
 
     // public $XPModalIsOpen = false, $profileModalIsOpen = false, $formationModalIsOpen = false ;
-    // public $alumnus, $experience, $formation;
+    public $alumnus ;
+    // , $experience, $formation;
     // protected $listeners = ['refresh' => '$refresh', 'deleteXP', 'deleteFormation'];
 
     // protected $rules = [
@@ -29,9 +30,9 @@ class AlumniProfile extends Component
     //     "alumnus.tel" => ["required", "string", "numeric"],
     // ];
 
-    // public function mount(User $user){
-    //     $this->alumnus = $user ;
-    // }
+    public function mount(User $user){
+        $this->alumnus = $user ;
+    }
 
     // public function toggleProfileModal(){
     //     $this->profileModalIsOpen = !$this->profileModalIsOpen ;
@@ -68,7 +69,7 @@ class AlumniProfile extends Component
     //     $data['experience']['user_id'] = Auth::id();
     //     Experience::updateOrCreate(["id" => $this->experience['id'] ?? ""], $data['experience']);
 
-    //     $this->toggleXPModal(); 
+    //     $this->toggleXPModal();
     //     $this->emit('refresh');
     //     session()->flash('message', "Enregistrement réussi !");
     // }
@@ -76,7 +77,7 @@ class AlumniProfile extends Component
     // public function editXP($experience){
     //     $this->toggleXPModal();
 
-    //     $this->experience = $experience ; 
+    //     $this->experience = $experience ;
     //     $this->experience['start_date'] = date("Y-m-d", strtotime($this->experience['start_date']));
     //     $this->experience['end_date'] = date("Y-m-d", strtotime($this->experience['end_date']));
     // }
@@ -107,9 +108,9 @@ class AlumniProfile extends Component
     //     ]);
 
     //     $data['formation']['user_id'] = Auth::id();
-    //     AcademicFormation::updateOrCreate(["id" => $this->formation['id'] ?? ""], $data['formation']); 
+    //     AcademicFormation::updateOrCreate(["id" => $this->formation['id'] ?? ""], $data['formation']);
 
-    //     $this->toggleFormationModal(); 
+    //     $this->toggleFormationModal();
     //     $this->emit('refresh');
     //     session()->flash('message', "Enregistrement réussi !");
     // }
@@ -117,7 +118,7 @@ class AlumniProfile extends Component
     // public function editFormation($formation){
     //     $this->toggleFormationModal();
 
-    //     $this->formation = $formation ; 
+    //     $this->formation = $formation ;
     //     // dd($this->formation);
     //     $this->formation['start_year'] = date("Y-m-d", strtotime($this->formation['start_year']));
     //     $this->formation['end_year'] = date("Y-m-d", strtotime($this->formation['end_year']));
@@ -135,8 +136,8 @@ class AlumniProfile extends Component
 
     public function render()
     {
-        $experiences = $this->alumnus->experiences ;
-        $formations = $this->alumnus->academicFormations ;
-        return view('livewire.alumni.alumni-profile', compact('experiences', 'formations'));
+        // $experiences = $this->alumnus->experiences ;
+        // $formations = $this->alumnus->academicFormations ;
+        return view('livewire.alumni.alumni-profile');
     }
 }

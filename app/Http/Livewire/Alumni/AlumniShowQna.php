@@ -25,11 +25,11 @@ class AlumniShowQna extends Component
         ]);
 
         $data['user_id'] = Auth::id();
-        $data['question_id'] = $this->question->id;
+        $data['question_id'] = $this->question->id; 
 
         Answer::create($data);
 
-        
+
         $this->emit("refresh");
         $this->dispatchBrowserEvent('clearAnswerInput');
         session()->flash('message', "Réponse postée !");

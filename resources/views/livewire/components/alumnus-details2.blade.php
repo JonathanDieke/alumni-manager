@@ -52,7 +52,7 @@
                             </div>
                             <div class="grid grid-cols-2">
                                 <div class="px-4 py-2 font-semibold">Date de naissance : </div>
-                                <div class="px-4 py-2">{{ $alumnus->birthdate }}</div>
+                                <div class="px-4 py-2">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:m:s', $alumnus->birthdate)->isoFormat('LL') }}</div>
                             </div>
                         </div>
                     </div>
@@ -191,14 +191,14 @@
                 <div class="bg-white px-4 pt-2 pb-4 sm:p-3 sm:pb-2">
                     <div class="grid grid-cols-6 gap-6">
                         <div class="col-span-6 sm:col-span-3">
-                            <x-label for="name" :value="__('Nom :')" />
-                            <x-input  id="name" class="block mt-1 w-full" type="text" name="name" required autofocus wire:model.defer="alumnus.name"/>
-                            @error('alumnus.name') <span class="text-red-500">{{ $message }}</span>@enderror
+                            <x-label for="lname" :value="__('Nom :')" />
+                            <x-input  id="lname" class="block mt-1 w-full" type="text" name="lname" required autofocus wire:model.defer="alumnus.lname"/>
+                            @error('alumnus.lname') <span class="text-red-500">{{ $message }}</span>@enderror
                         </div>
                         <div class="col-span-6 sm:col-span-3">
-                            <x-label for="lname" :value="__('Prénoms :')" />
-                            <x-input  id="lname" class="block mt-1 w-full" type="text" name="lname" :value="old('lname')" required wire:model.defer="alumnus.lname"/>
-                            @error('alumnus.lname') <span class="text-red-500">{{ $message }}</span>@enderror
+                            <x-label for="fname" :value="__('Prénoms :')" />
+                            <x-input  id="fname" class="block mt-1 w-full" type="text" name="fname" :value="old('fname')" required wire:model.defer="alumnus.fname"/>
+                            @error('alumnus.fname') <span class="text-red-500">{{ $message }}</span>@enderror
                         </div>
                     </div>
                     <div>
@@ -221,7 +221,7 @@
                         <div class="grid grid-cols-6 gap-6">
                             <div class="col-span-6 sm:col-span-3">
                                 <x-label for="birthdate" :value="__('Date d\'anniversaire :')" />
-                                <x-input  id="birthdate" class="block mt-1 w-full" type="date" name="birthdate" required wire:model.defer="alumnus.birthdate"/>
+                                <x-input  id="birthdate" class="block mt-1 w-full" type="date"  name="birthdate" required wire:model.defer="alumnus.birthdate"/>
                                 @error('alumnus.birthdate') <span class="text-red-500">{{ $message }}</span>@enderror
                             </div>
                             <div class="col-span-6 sm:col-span-3">

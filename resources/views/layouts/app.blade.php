@@ -21,9 +21,8 @@
             <!-- Page Heading -->
             <header class="bg-white shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }} 
+                    {{ $header }}
                 </div>
-
             </header>
             @if(session()->has('message') )
             <div class="mx-8 my-5 py-3 bg-green-200 rounded-md border-green-800 overflow-hidden text-center text-green-600 shadow">
@@ -65,6 +64,7 @@
                 } )
                 .then( editor => {
                     window.addEventListener('clearAnswerInput', () => {
+                        window.scrollTo({ top: 100, behavior: 'smooth' });
                         editor.data.set("")
                     })
                     editor.model.document.on('change:data', () => {
