@@ -56,7 +56,7 @@ class AlumniOffersComponent extends Component
             session()->flash('message', "Mise à jour réussie !");
             // dd("nice working !");
         }else{
-            $data['offer']['user_id'] = Auth::id();
+            $data['offer']['alumnus_id'] = Auth::id();
             // dd("not working !");
 
             Offer::create($data['offer']);
@@ -84,7 +84,7 @@ class AlumniOffersComponent extends Component
     {
         $q= "%".$this->query."%" ;
         if(!empty($this->alumnus->toArray())){
-            $offers =  Offer::where("user_id", Auth::id())
+            $offers =  Offer::where("alumnus_id", Auth::id())
             ->where(function ($query) use ($q){
                 if(!empty($this->query)){
                     $query->where("title", "like", $q)

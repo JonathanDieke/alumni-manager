@@ -24,8 +24,8 @@ class AlumniShowQna extends Component
             "answer" => ['required', 'min:3']
         ]);
 
-        $data['user_id'] = Auth::id();
-        $data['question_id'] = $this->question->id; 
+        $data['alumnus_id'] = Auth::id();
+        $data['question_id'] = $this->question->id;
 
         Answer::create($data);
 

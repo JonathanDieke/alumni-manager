@@ -30,7 +30,7 @@ class QuestionModal extends Component
         $this->question = $this->questionEditing->toArray() ;
         $this->questionModalIsOpen = !$this->questionModalIsOpen ;
 
-    } 
+    }
 
     public function reinitializeInputs(){
         $this->question = [];
@@ -44,7 +44,7 @@ class QuestionModal extends Component
             "question.keywords" => ['nullable', 'string'],
         ]);
 
-        $data['question']['user_id'] = Auth::id();
+        $data['question']['alumnus_id'] = Auth::id();
 
         Question::create($data["question"]);
 

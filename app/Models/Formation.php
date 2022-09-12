@@ -6,13 +6,12 @@ use App\Enums\FormationLevel;
 use App\Traits\HasUUID;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Str;
+use Carbon\Carbon;
 
-class AcademicFormation extends Model
+class Formation extends Model
 {
-    use HasFactory, HasUUID, SoftDeletes;
+    use HasFactory, HasUUID;
 
     public $incrementing = false;
     protected $keyType = 'string';
@@ -25,7 +24,7 @@ class AcademicFormation extends Model
      * @var array
      */
     protected $casts = [
-        'level' => FormationLevel::class,
+        // 'level' => FormationLevel::class,
     ];
 
     public function getLevel(){
@@ -33,8 +32,12 @@ class AcademicFormation extends Model
         // return Str::contains($this->level, ['1', '2', "3", '4', '5', '6', '7', '8',]) ? "Bac +" . $this->level[-1] : "Baccalauréat";
     }
 
+    public function getDuration(){
+        return Carbon::createFromFormat('Y-m-d H:m:s', $this->end_date)->longAbsoluteDiffForHumans(Carbon::createFromFormat('Y-m-d H:m:s', $this->start_date));
+    }
+
     /**
-     * Get the user that owns the AcademicFormation
+     * Get the user that owns the Formation
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

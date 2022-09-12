@@ -20,12 +20,12 @@ return new class extends Migration
             $table->enum('type', ["stage", "job"]);
             $table->string('company');
             $table->string('localization');
-            $table->date('deadline'); 
+            $table->date('deadline');
 
-            $table->foreignUuid('user_id')->constrained();
+            $table->foreignUuid('alumnus_id')->constrained();
 
             $table->timestamps();
-            $table->softDeletes();
+            // $table->softDeletes();
         });
     }
 

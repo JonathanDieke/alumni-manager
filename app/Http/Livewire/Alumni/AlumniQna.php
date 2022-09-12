@@ -5,9 +5,11 @@ namespace App\Http\Livewire\Alumni;
 use App\Models\Question;
 use Carbon\Carbon;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class AlumniQna extends Component
 {
+    use WithPagination ;
     public $query = "" ;
     public $listeners = ['refresh' => '$refresh', 'refreshParent'] ;
 
@@ -18,7 +20,7 @@ class AlumniQna extends Component
 
     public function render()
     {
-        Carbon::setLocale('fr'); 
+        Carbon::setLocale('fr');
 
         if(!empty($this->query)){
             $q= "%".$this->query."%" ;
@@ -27,9 +29,9 @@ class AlumniQna extends Component
             ->orWhere("keywords", "like", $q)
             ->paginate(10);
         }else{
-            $questions = Question::orderBy('created_at', 'desc')->paginate(10);
+            $questions = Question::orderBy('created_at', 'desc')->paginate(5);
         }
-        
+
         return view('livewire.alumni.alumni-qna', compact('questions'))->layout('layouts.app');
     }
 }

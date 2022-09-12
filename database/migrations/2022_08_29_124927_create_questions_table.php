@@ -20,10 +20,10 @@ return new class extends Migration
             $table->string('keywords')->nullable();
             $table->enum('status', ['open', 'closed', 'resolved']);
 
-            $table->foreignUuid('user_id')->constrained();
+            $table->foreignUuid('alumnus_id')->constrained();
 
             $table->timestamps();
-            $table->softDeletes();
+            // $table->softDeletes();
         });
     }
 

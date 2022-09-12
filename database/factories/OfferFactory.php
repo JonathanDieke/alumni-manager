@@ -19,7 +19,7 @@ class OfferFactory extends Factory
      */
     public function definition()
     {
-        $userId = User::all()->random()->id;
+        $alumnusId = User::all()->random()->id;
 
         return [
             'title' => Str::random(),
@@ -28,7 +28,7 @@ class OfferFactory extends Factory
             'type' => Arr::random(["stage", "job"]),
             'localization' => Str::random(),
             "deadline" => $this->faker->dateTimeBetween(startDate: "-10years", endDate:"now"),
-            "user_id" => $userId,
+            "alumnus_id" => $alumnusId,
         ];
     }
 }

@@ -7,6 +7,8 @@ use \App\Models\User;
 use Illuminate\Validation\Rules\Password;
 use Livewire\WithPagination;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 
 class AdminAlumniComponent extends Component
 {
@@ -30,6 +32,7 @@ class AdminAlumniComponent extends Component
             "alumnus.tel" => ["required", "string", "numeric"],
             "alumnus.promotion" => ["required", "string", "starts_with:it"],
             "alumnus.password" => ['required', 'confirmed', Password::default()],
+            // "alumnus.password_confirmation" => ['nullable'],
         ];
     }
 
@@ -43,28 +46,34 @@ class AdminAlumniComponent extends Component
     }
 
     public function store(){
+        // DB::enableQueryLog();
         $data = $this->validate();
-        $data['alumnus']['lname'] = Str::upper($data['alumnus']['lname']);
-        $data['alumnus']['fname'] = Str::title($data['alumnus']['fname']);
-        $data['alumnus']['job'] = Str::upper($data['alumnus']['job']);
-        $data['alumnus']['company'] = Str::upper($data['alumnus']['company']);
+        // dd($this->alumnus);
+        $this->alumnus['lname'] = Str::upper($data['alumnus']['lname']);
+        $this->alumnus['fname'] = Str::title($data['alumnus']['fname']);
+        $this->alumnus['job'] = Str::upper($data['alumnus']['job']);
+        $this->alumnus['company'] = Str::upper($data['alumnus']['company']);
+        $this->alumnus['password'] = Hash::make($data['alumnus']['password']);
 
-        // dd($data);
-
-        if($this->alumnus instanceof User){
-            $this->alumnus->update($data["alumnus"]);
+        if(isset($this->alumnus["id"])){
+            unset($this->alumnus['password_confirmation']);
+            User::find($this->alumnus['id'])->update($this->alumnus);
             session()->flash('message', "Mise à jour réussie !");
         }else{
             User::create($data['alumnus']);
             session()->flash('message', "Enregistrement réussi !");
         }
+        // dd(DB::getQueryLog());
 
         $this->toggleModal();
     }
 
     public function edit(User $alumnus){
         $this->toggleModal();
-        $this->alumnus = $alumnus ;
+        $this->alumnus = $alumnus->toArray() ;
+        $this->alumnus['gender'] = $alumnus->reverseGender();
+        $this->alumnus['birthdate'] = date("Y-m-d", strtotime($alumnus->birthdate)) ;
+        // dd($this->alumnus);
     }
 
     public function delete(User $alumnus){
@@ -78,6 +87,8 @@ class AdminAlumniComponent extends Component
 
     public function render()
     {
+        Carbon::setLocale('fr');
+
         if(!empty($this->query)){
             $q= "%".$this->query."%" ;
             $alumni = User::where('fname', "like", Str::title($q))

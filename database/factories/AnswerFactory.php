@@ -16,11 +16,11 @@ class AnswerFactory extends Factory
      */
     public function definition()
     {
-        $userId = \App\Models\User::all()->random()->id;
+        $alumnusId = \App\Models\User::all()->random()->id;
         $questionId = \App\Models\Question::all()->random()->id;
         return [
             "answer" => fake()->realTextBetween(40, 100),
-            "user_id" => $userId,
+            "alumnus_id" => $alumnusId,
             "question_id" => $questionId,
         ];
     }

@@ -8,9 +8,9 @@ use App\Models\User;
 use Illuminate\Support\Arr;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\AcademicFormation>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Formation>
  */
-class AcademicFormationFactory extends Factory
+class FormationFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,14 +19,14 @@ class AcademicFormationFactory extends Factory
      */
     public function definition()
     {
-        $userId = User::all()->random()->id;
+        $alumnusId = User::all()->random()->id;
         return [
             "name" => Str::random(),
             "level" => Arr::random(["bac", "bac1", "bac2", "bac3", 'bac4', 'bac5', 'bac6', 'bac7', 'bac8']),
             "school" => Str::random(),
             "start_date" => $this->faker->dateTimeBetween(startDate: "-10years", endDate:"now"),
             "end_date" => $this->faker->dateTimeBetween(startDate: "-10years", endDate:"now"),
-            "user_id" => $userId,
+            "alumnus_id" => $alumnusId,
         ];
     }
 }

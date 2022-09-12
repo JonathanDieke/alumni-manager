@@ -11,12 +11,18 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Carbon\Carbon;
-// use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasUUID;
 
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'alumni';
 
     public $incrementing = false;
     protected $keyType = 'string';
@@ -55,7 +61,7 @@ class User extends Authenticatable
 
     public function getBirthdate()
     {
-        return $this->birthdate ? Carbon::createFromFormat('Y-m-d H:m:s', $this->birthdate)->isoFormat('LL') : "1970-01-01" ;
+        return Carbon::createFromFormat('Y-m-d H:m:s', date("Y-m-d H:m:s", strtotime($this->birthdate)) )->isoFormat('LL')  ;
     }
 
     /**
@@ -70,24 +76,28 @@ class User extends Authenticatable
         );
     }
 
+    public function reverseGender() {
+        return Str::lower($this->gender) == 'masculin' ? 'male' : 'female' ;
+    }
+
     /**
      * Get all of the academic formations for the User
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function academicFormations(): HasMany
+    public function formations(): HasMany
     {
-        return $this->hasMany(AcademicFormation::class);
-    }
+        return $this->hasMany(Formation::class, 'alumnus_id');
 
-    /**
+    }
+        /**
      * Get all of the experiences for the User
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function experiences(): HasMany
     {
-        return $this->hasMany(Experience::class);
+        return $this->hasMany(Experience::class, 'alumnus_id');
     }
 
     /**
@@ -97,7 +107,7 @@ class User extends Authenticatable
      */
     public function offers(): HasMany
     {
-        return $this->hasMany(Offer::class);
+        return $this->hasMany(Offer::class, 'alumnus_id');
     }
 
     /**
@@ -107,7 +117,7 @@ class User extends Authenticatable
      */
     public function questions(): HasMany
     {
-        return $this->hasMany(Question::class);
+        return $this->hasMany(Question::class, 'alumnus_id');
     }
 
     /**
@@ -117,6 +127,6 @@ class User extends Authenticatable
      */
     public function asnwers(): HasMany
     {
-        return $this->hasMany(Answer::class);
+        return $this->hasMany(Answer::class, 'alumnus_id');
     }
 }

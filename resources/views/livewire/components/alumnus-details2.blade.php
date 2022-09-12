@@ -52,7 +52,8 @@
                             </div>
                             <div class="grid grid-cols-2">
                                 <div class="px-4 py-2 font-semibold">Date de naissance : </div>
-                                <div class="px-4 py-2">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:m:s', $alumnus->birthdate)->isoFormat('LL') }}</div>
+                                {{-- <div class="px-4 py-2">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:m:s', $alumnus->birthdate ?? "1970-01-01")->isoFormat('LL') }}</div> --}}
+                                <div class="px-4 py-2">{{ $alumnus->getBirthdate() }}</div>
                             </div>
                         </div>
                     </div>
@@ -97,7 +98,8 @@
                                     <div class="basis-1/2 hover:cursor-pointer" wire:click="editXP({{ $xp }})">
                                         <div class="text-teal-600">{{$xp->title }}</div>
                                         <div class="text-gray-500 text-xs">Chez <span class="uppercase"> {{ $xp->company }}</span></div>
-                                        <div class="text-gray-500 text-xs">{{ $xp->start_date }}</div>
+                                        {{-- <div class="text-gray-500 text-xs">{{ $xp->start_date }}</div> --}}
+                                        <div class="text-gray-500 text-xs">Durée : {{ $xp->getDuration() }} </div>
                                     </div>
                                     <div class="basis-1/2 flex justify-center">
                                         <button class="text-sm font-medium text-red-600 bg-red-400 h-fit px-2 rounded shadow hover:bg-red-300" onclick="if(confirm('Voulez-vous supprimer cette expérience ?')) Livewire.emit('deleteXP', '{{ $xp->id }}')">Supprimer</button>
@@ -106,7 +108,7 @@
                                     <div class="basis-1 hover:cursor-pointer">
                                         <div class="text-teal-600">{{$xp->title }}</div>
                                         <div class="text-gray-500 text-xs">Chez <span class="uppercase"> {{ $xp->company }}</span></div>
-                                        <div class="text-gray-500 text-xs">{{ $xp->start_date }}</div>
+                                        <div class="text-gray-500 text-xs">Durée : {{ $xp->getDuration() }}</div>
                                     </div>
                                     @endif
                                 </li>
@@ -146,7 +148,7 @@
                                     @if($this->isAuthUser())
                                     <div class="basis-1/2 hover:cursor-pointer" wire:click="editFormation({{ $formation }})">
                                         <div class="text-teal-600">{{ $formation->name }} ({{ $formation->getLevel() }})</div>
-                                        <div class="text-gray-500 text-xs">{{ $formation->school }} ({{ $formation->start_year }})</div>
+                                        <div class="text-gray-500 text-xs">{{ $formation->school }} (Durée : {{ $formation->getDuration() }})</div>
                                     </div>
                                     <div class="basis-1/2 flex justify-end">
                                         <button class="text-sm font-medium text-red-600 bg-red-400 h-fit px-2 rounded shadow hover:bg-red-300" onclick="if(confirm('Voulez-vous supprimer cette formation ?')) Livewire.emit('deleteFormation', '{{ $formation->id }}')">Supprimer</button>
@@ -154,7 +156,7 @@
                                     @else
                                     <div class="basis-1 hover:cursor-pointer">
                                         <div class="text-teal-600">{{ $formation->name }} ({{ $formation->getLevel() }})</div>
-                                        <div class="text-gray-500 text-xs">{{ $formation->school }} ({{ $formation->start_year }})</div>
+                                        <div class="text-gray-500 text-xs">{{ $formation->school }} (Durée : {{ $formation->getDuration() }})</div>
                                     </div>
                                     @endif
                                 </li>
@@ -192,59 +194,59 @@
                     <div class="grid grid-cols-6 gap-6">
                         <div class="col-span-6 sm:col-span-3">
                             <x-label for="lname" :value="__('Nom :')" />
-                            <x-input  id="lname" class="block mt-1 w-full" type="text" name="lname" required autofocus wire:model.defer="alumnus.lname"/>
-                            @error('alumnus.lname') <span class="text-red-500">{{ $message }}</span>@enderror
+                            <x-input  id="lname" class="block mt-1 w-full" type="text" name="lname" required autofocus wire:model.defer="alumnusEditable.lname"/>
+                            @error('alumnusEditable.lname') <span class="text-red-500">{{ $message }}</span>@enderror
                         </div>
                         <div class="col-span-6 sm:col-span-3">
                             <x-label for="fname" :value="__('Prénoms :')" />
-                            <x-input  id="fname" class="block mt-1 w-full" type="text" name="fname" :value="old('fname')" required wire:model.defer="alumnus.fname"/>
-                            @error('alumnus.fname') <span class="text-red-500">{{ $message }}</span>@enderror
+                            <x-input  id="fname" class="block mt-1 w-full" type="text" name="fname" :value="old('fname')" required wire:model.defer="alumnusEditable.fname"/>
+                            @error('alumnusEditable.fname') <span class="text-red-500">{{ $message }}</span>@enderror
                         </div>
                     </div>
                     <div>
                         <div class="grid grid-cols-6 gap-6">
                             <div class="col-span-6 sm:col-span-3">
                                 <x-label for="email" :value="__('Email :')" />
-                                <x-input  id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required wire:model.defer="alumnus.email"/>
-                                @error('alumnus.email') <span class="text-red-500">{{ $message }}</span>@enderror
+                                <x-input  id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required wire:model.defer="alumnusEditable.email"/>
+                                @error('alumnusEditable.email') <span class="text-red-500">{{ $message }}</span>@enderror
                             </div>
                             <div class="col-span-6 sm:col-span-3">
                                 <x-label for="gender" :value="__('Genre :')" />
-                                <x-select wire:model.defer="alumnus.gender">
+                                <x-select wire:model.defer="alumnusEditable.gender">
                                     <option selected >---</option>
                                     <option value="female">Féminin</option>
                                     <option value="male">Masculin</option>
                                 </x-selet>
-                                @error('alumnus.gender') <span class="text-red-500">{{ $message }}</span>@enderror
+                                @error('alumnusEditable.gender') <span class="text-red-500">{{ $message }}</span>@enderror
                             </div>
                         </div>
                         <div class="grid grid-cols-6 gap-6">
                             <div class="col-span-6 sm:col-span-3">
                                 <x-label for="birthdate" :value="__('Date d\'anniversaire :')" />
-                                <x-input  id="birthdate" class="block mt-1 w-full" type="date"  name="birthdate" required wire:model.defer="alumnus.birthdate"/>
-                                @error('alumnus.birthdate') <span class="text-red-500">{{ $message }}</span>@enderror
+                                <x-input  id="birthdate" class="block mt-1 w-full" type="date"  name="birthdate" required wire:model.defer="alumnusEditable.birthdate"/>
+                                @error('alumnusEditable.birthdate') <span class="text-red-500">{{ $message }}</span>@enderror
                             </div>
                             <div class="col-span-6 sm:col-span-3">
-                                <x-label for="job" :value="__('Poste :')" />
-                                <x-input  id="job" class="block mt-1 w-full" type="text" name="job" required wire:model.defer="alumnus.job"/>
-                                @error('alumnus.job') <span class="text-red-500">{{ $message }}</span>@enderror
+                                <x-label for="job" :value="__('Profession :')" />
+                                <x-input  id="job" class="block mt-1 w-full" type="text" name="job" required wire:model.defer="alumnusEditable.job"/>
+                                @error('alumnusEditable.job') <span class="text-red-500">{{ $message }}</span>@enderror
                             </div>
                         </div>
                         <div class="grid grid-cols-6 gap-6">
                             <div class="col-span-6 sm:col-span-3">
                                 <x-label for="company" :value="__('Entreprise :')" />
-                                <x-input  id="company" class="block mt-1 w-full" type="text" name="company" required wire:model.defer="alumnus.company"/>
-                                @error('alumnus.company') <span class="text-red-500">{{ $message }}</span>@enderror
+                                <x-input  id="company" class="block mt-1 w-full" type="text" name="company" required wire:model.defer="alumnusEditable.company"/>
+                                @error('alumnusEditable.company') <span class="text-red-500">{{ $message }}</span>@enderror
                             </div>
                             <div class="col-span-6 sm:col-span-3">
                                 <x-label for="tel" :value="__('Téléphone :')" />
-                                <x-input  id="tel" class="block mt-1 w-full" type="text" name="tel" required wire:model.defer="alumnus.tel"/>
-                                @error('alumnus.tel') <span class="text-red-500">{{ $message }}</span>@enderror
+                                <x-input  id="tel" class="block mt-1 w-full" type="text" name="tel" required wire:model.defer="alumnusEditable.tel"/>
+                                @error('alumnusEditable.tel') <span class="text-red-500">{{ $message }}</span>@enderror
                             </div>
                         </div>
                         <div class="w-full">
                             <x-label for="promotion" :value="__('Promotion :')" />
-                            <x-select wire:model.defer="alumnus.promotion">
+                            <x-select wire:model.defer="alumnusEditable.promotion">
                                 <option selected >---</option>
                                 <option value="it1">IT 1</option>
                                 <option value="it2">IT 2</option>
@@ -257,7 +259,7 @@
                                 <option value="it9">IT 9</option>
                                 <option value="it10">IT 10</option>
                             </x-selet>
-                            @error('alumnus.promotion') <span class="text-red-500">{{ $message }}</span>@enderror
+                            @error('alumnusEditable.promotion') <span class="text-red-500">{{ $message }}</span>@enderror
                         </div>
                     </div>
                 </div>
@@ -421,14 +423,14 @@
                         <div>
                             <div class="grid grid-cols-6 gap-6">
                                 <div class="col-span-6 sm:col-span-3">
-                                    <x-label for="start_year" :value="__('Date de début :')" />
-                                    <x-input  id="start_year" class="block mt-1 w-full" type="date" wire:model.defer="formation.start_year" required/>
-                                    @error('formation.start_year') <span class="text-red-500">{{ $message }}</span>@enderror
+                                    <x-label for="start_date" :value="__('Date de début :')" />
+                                    <x-input  id="start_date" class="block mt-1 w-full" type="date" wire:model.defer="formation.start_date" required/>
+                                    @error('formation.start_date') <span class="text-red-500">{{ $message }}</span>@enderror
                                 </div>
                                 <div class="col-span-6 sm:col-span-3">
-                                    <x-label for="end_year" :value="__('Date de fin :')" />
-                                    <x-input  id="end_year" class="block mt-1 w-full" type="date" wire:model.defer="formation.end_year" required/>
-                                    @error('formation.end_year') <span class="text-red-500">{{ $message }}</span>@enderror
+                                    <x-label for="end_date" :value="__('Date de fin :')" />
+                                    <x-input  id="end_date" class="block mt-1 w-full" type="date" wire:model.defer="formation.end_date" required/>
+                                    @error('formation.end_date') <span class="text-red-500">{{ $message }}</span>@enderror
                                 </div>
                             </div>
                         </div>

@@ -6,49 +6,53 @@ use Livewire\Component;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Experience;
-use App\Models\AcademicFormation;
+use App\Models\Formation;
+use Illuminate\Support\Str;
 
 class AlumnusDetails2 extends Component
 {
 
     public $XPModalIsOpen = false, $profileModalIsOpen = false, $formationModalIsOpen = false ;
-    public $alumnus, $experience, $formation;
+    public $alumnus, $alumnusEditable, $experience, $formation;
     protected $listeners = ['refresh' => '$refresh', 'deleteXP', 'deleteFormation'];
 
     public function rules(){
         return [
             // alumnus
-            "alumnus.fname" => ["required", "string", "min:3"],
-            "alumnus.lname" => ["required", "string", "min:3"],
-            "alumnus.email" => ["required", "email"],
-            "alumnus.gender" => ["required", "in:male,female"],
-            "alumnus.birthdate" => ["required", "date", 'before:'. now()->subYears(10)],
-            "alumnus.job" => ["required", "string"],
-            "alumnus.company" => ["required", "string"],
-            "alumnus.promotion" => ["required", "string"],
-            "alumnus.tel" => ["required", "string", "numeric"],
+            "alumnusEditable.fname" => ["required", "string", "min:3"],
+            "alumnusEditable.lname" => ["required", "string", "min:3"],
+            "alumnusEditable.email" => ["required", "email"],
+            "alumnusEditable.gender" => ["required", "in:male,female"],
+            "alumnusEditable.birthdate" => ["required", "date", 'before:'. now()->subYears(10)],
+            "alumnusEditable.job" => ["required", "string"],
+            "alumnusEditable.company" => ["required", "string"],
+            "alumnusEditable.promotion" => ["required", "string"],
+            "alumnusEditable.tel" => ["required", "string"],
         ];
     }
 
     public function mount(User $user){
         $this->alumnus = $user ;
+        $this->alumnusEditable = $user->toArray() ;
     }
 
 
     public function toggleProfileModal(){
         $this->resetErrorBag();
-        $this->alumnus->birthdate = date("Y-m-d", strtotime($this->alumnus->birthdate));
-        $this->profileModalIsOpen = !$this->profileModalIsOpen ; 
+        $this->alumnusEditable['birthdate'] = date("Y-m-d", strtotime($this->alumnus->birthdate));
+        $this->alumnusEditable['gender'] = $this->alumnus->reverseGender();
+        $this->profileModalIsOpen = !$this->profileModalIsOpen ;
     }
 
     public function updateProfile(){
         $data = $this->validate();
 
-        $this->alumnus->save();
+        // $this->alumnus->save();
+        $this->alumnus->update($data['alumnusEditable']);
 
         $this->resetErrorBag();
-        $this->profileModalIsOpen = !$this->profileModalIsOpen ;
         $this->emit('refresh');
+        $this->profileModalIsOpen = !$this->profileModalIsOpen ;
         session()->flash('message', "Mise à jour réussie !");
     }
 
@@ -68,7 +72,7 @@ class AlumnusDetails2 extends Component
             "experience.end_date" => ["required", 'date', 'after_or_equal:experience.start_date'],
         ]);
 
-        $data['experience']['user_id'] = Auth::id();
+        $data['experience']['alumnus_id'] = Auth::id();
         Experience::updateOrCreate(["id" => $this->experience['id'] ?? ""], $data['experience']);
 
         $this->toggleXPModal();
@@ -105,12 +109,15 @@ class AlumnusDetails2 extends Component
              "formation.name" => ["required", "string", "min:3"],
              "formation.level" => ["required", "string", "in:bac,bac1,bac2,bac3,bac4,bac5,bac6,bac7,bac8"],
              "formation.school" => ["required", "string", "min:3"],
-             "formation.start_year" => ["required", "date", "before_or_equal:now"],
-             "formation.end_year" => ["required", "date", "after_or_equal:start_year"],
+             "formation.start_date" => ["required", "date", "before_or_equal:now"],
+             "formation.end_date" => ["required", "date", "after_or_equal:start_year"],
         ]);
 
-        $data['formation']['user_id'] = Auth::id();
-        AcademicFormation::updateOrCreate(["id" => $this->formation['id'] ?? ""], $data['formation']);
+        $data['formation']['alumnus_id'] = Auth::id();
+        $data['formation']['school'] = Str::upper($data['formation']['school']);
+
+        // dd($data, $this->formation);
+        Formation::updateOrCreate(["id" => $this->formation['id'] ?? ""], $data['formation']);
 
         $this->toggleFormationModal();
         $this->emit('refresh');
@@ -127,7 +134,7 @@ class AlumnusDetails2 extends Component
         // $this->formation['level'] = $this->formation['level'] ;
     }
 
-    public function deleteFormation(AcademicFormation $formation){
+    public function deleteFormation(Formation $formation){
         $formation->delete();
         $this->emit('refresh');
     }
@@ -142,7 +149,8 @@ class AlumnusDetails2 extends Component
     public function render()
     {
         $experiences = $this->alumnus->experiences ;
-        $formations = $this->alumnus->academicFormations ;
+        $formations = $this->alumnus->formations ;
+        // dd($this->alumnus);
         return view('livewire.components.alumnus-details2', compact('experiences', 'formations'));
     }
 }

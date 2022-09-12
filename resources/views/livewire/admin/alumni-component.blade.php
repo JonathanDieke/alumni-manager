@@ -133,7 +133,7 @@
                                 </div>
                                 <div class="col-span-6 sm:col-span-3">
                                     <x-label for="gender" :value="__('Genre :')" />
-                                    <x-select wire:model.defer="alumnus.gender">
+                                    <x-select wire:model.defer="alumnus.gender"  :value="old('gender')">
                                         <option selected >---</option>
                                         <option value="female">Féminin</option>
                                         <option value="male">Masculin</option>
@@ -148,7 +148,7 @@
                                     @error('alumnus.birthdate') <span class="text-red-500">{{ $message }}</span>@enderror
                                 </div>
                                 <div class="col-span-6 sm:col-span-3">
-                                    <x-label for="job" :value="__('Poste :')" />
+                                    <x-label for="job" :value="__('Profession :')" />
                                     <x-input  id="job" class="block mt-1 w-full" type="text" name="job" required wire:model.defer="alumnus.job"/>
                                     @error('alumnus.job') <span class="text-red-500">{{ $message }}</span>@enderror
                                 </div>

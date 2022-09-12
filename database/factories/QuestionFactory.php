@@ -19,14 +19,14 @@ class QuestionFactory extends Factory
      */
     public function definition()
     {
-        $userId = User::all()->random()->id;
+        $alumnusId = User::all()->random()->id;
 
         return [
             'title' => Str::random(16),
-            'description' => fake()->realTextBetween(35, 200),
+            'description' => fake()->realTextBetween(35, 200), 
             'keywords' => Str::random(4) . ", " . Str::random(4),
             "status" => Arr::random(['closed', 'open', 'resolved']),
-            "user_id" => $userId,
+            "alumnus_id" => $alumnusId,
         ];
     }
 }

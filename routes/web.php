@@ -24,7 +24,7 @@ use App\Http\Livewire\Alumni\ProfessionalDirectoryComponent;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route("login");
 });
 
 require __DIR__.'/auth.php';

@@ -18,7 +18,7 @@ class ExperienceFactory extends Factory
      */
     public function definition()
     {
-        $userId = User::all()->random()->id;
+        $alumnusId = User::all()->random()->id;
 
         return [
             'title' => Str::random(),
@@ -26,7 +26,7 @@ class ExperienceFactory extends Factory
             'localization' => Str::random(),
             "start_date" => $this->faker->dateTimeBetween(startDate: "-10years", endDate:"now"),
             "end_date" => $this->faker->dateTimeBetween(startDate: "-10years", endDate:"now"),
-            "user_id" => $userId,
+            "alumnus_id" => $alumnusId,
         ];
     }
 }

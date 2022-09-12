@@ -22,10 +22,10 @@ return new class extends Migration
             $table->date('start_date');
             $table->date('end_date');
 
-            $table->foreignUuid('user_id')->constrained();
+            $table->foreignUuid('alumnus_id')->constrained();
 
             $table->timestamps();
-            $table->softDeletes();
+            // $table->softDeletes();
         });
     }
 

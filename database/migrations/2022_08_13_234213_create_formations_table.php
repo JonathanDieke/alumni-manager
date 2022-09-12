@@ -14,7 +14,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('academic_formations', function (Blueprint $table) {
+        Schema::create('formations', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
             $table->enum('level', ["bac", "bac1", "bac2", "bac3", 'bac4', 'bac5', 'bac6', 'bac7', 'bac8']);
@@ -22,10 +22,10 @@ return new class extends Migration
             $table->date('start_date');
             $table->date('end_date');
 
-            $table->foreignUuid('user_id')->constrained();
+            $table->foreignUuid('alumnus_id')->constrained();
 
             $table->timestamps();
-            $table->softDeletes();
+            // $table->softDeletes();
 
         });
     }
@@ -37,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('academic_formations');
+        Schema::dropIfExists('formations');
     }
 };

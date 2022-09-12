@@ -9,9 +9,10 @@
             <x-input id="query" class="w-full sm:w-1/2" type="text" placeholder="titre, description, mots clés..." wire:model="query" />
         </div>
     </div>
+
     {{-- Fin de barre de recherche --}}
 
-   
+
     <div class="container mx-auto">
        <div class="bg-white mt-5 px-5 py-2">
             <div class="flex justify-between mt-3 mb-5">
@@ -66,11 +67,12 @@
                 @empty
                 <p class="text-center py-3 text-gray-600 font-semibold ">Aucun résultat</p>
                 @endforelse
-                <div class="flex container justify-center py-3">
+                <div class="flex container justify-center py-3 bg-gray-2007">
+                    {{-- paginator --}}
                     {{ $questions->links("vendor.pagination.tailwind") }}
                 </div>
             </div>
        </div>
-    </div> 
+    </div>
 
 </div>

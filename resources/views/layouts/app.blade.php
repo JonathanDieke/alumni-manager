@@ -45,7 +45,9 @@
         <script type="text/javascript">
 
             $(() => {
-                ClassicEditor.create( $('#text-editor-question'))
+                ClassicEditor.create( document.getElementById('text-editor-question'),  {
+                    toolbar:['Heading', 'Bold', 'Italic',  '-', 'NumberedList', 'BulletedList', '-', 'Link',]
+                })
                 .then( editor => {
                     editor.model.document.on('change:data', () => {
                         let description = $(".text-editor-question").data('description')
@@ -59,8 +61,7 @@
 
                 ClassicEditor
                 .create( document.getElementById('text-editor-answer'), {
-                    removePlugins: [ 'Heading'],
-                    toolbar: [ 'bold', 'italic', 'bulletedList', 'numberedList' ]
+                    toolbar:['Heading', 'Bold', 'Italic',  '-', 'NumberedList', 'BulletedList', '-', 'Link',]
                 } )
                 .then( editor => {
                     window.addEventListener('clearAnswerInput', () => {
