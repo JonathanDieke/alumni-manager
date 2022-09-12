@@ -16,7 +16,13 @@ ces tutoriels :
  <li><a href="https://supercidadedigital.com.br/oracle-database-connections-in-php-laravel-over-ubuntu/">Tutoriel pour Linux</a> </li>
  <li><a href="https://www.youtube.com/watch?v=i9C2thlgOg8">Tutoriel pour Windows (avec XAMPP ou WAMPP)</a> </li>
 </ul>
-<hr/>
+<h1>
+Variables d'environnement
+</h1>
+<p>
+A la racine du projet, il faudra renommer le fichier ".env.example" en ".env".\n
+A l'intérieur de ce fichier, se retrouvent les identifiants de connexion à la base de données. Veuillez les modifier selon votre environnement.
+</p>
 <h1>
 Lancer l'application
 </h1>
@@ -31,6 +37,22 @@ Démarrer le serveur Laravel via la commande "php artisan serve"
 <li>
 Démarrer le serveur Javascript via la commande "npm run dev" 
 </li> 
-
 </ul>
 </div>
+<h1>
+Base de données
+</h1>
+<ul>
+<li>
+Vous pouvez créer la structure de la base de données via la commande "php artisan migrate" .
+</li>
+<li>
+Par la suite, vous pouvez ajouter des données factices de test via la commande "php artisan db:seed" .
+\n
+NB : Dans ce cas, les identifiants de connexion de l'administrateur seront : email => aadmin@mail.ci, mot de passe => password.
+</li>
+</ul>
+
+<h3>
+Enjoy !
+</h3>
