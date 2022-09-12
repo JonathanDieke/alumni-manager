@@ -50,7 +50,7 @@ Vous pouvez créer la structure de la base de données via la commande "php arti
 <li>
 Par la suite, vous pouvez ajouter des données factices de test via la commande "php artisan db:seed" .
 <br/>
-NB : Dans ce cas, les identifiants de connexion de l'administrateur seront : email => aadmin@mail.ci, mot de passe => password.
+NB : Dans ce cas, les identifiants de connexion de l'administrateur seront : email => admin@mail.ci, mot de passe => password.
 </li>
 </ul>
 
