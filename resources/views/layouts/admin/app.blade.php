@@ -7,6 +7,10 @@
 
         <title>{{ config('app.name') }} | </title>
 
+
+        <link rel="stylesheet" href="{{ asset('build/assets/app.922a84b3.css') }}">
+        <script src="{{ asset('build/assets/app.839daef0.js') }}"></script>
+        
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
