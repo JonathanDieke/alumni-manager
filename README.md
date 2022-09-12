@@ -20,7 +20,8 @@ ces tutoriels :
 Variables d'environnement
 </h1>
 <p>
-A la racine du projet, il faudra renommer le fichier ".env.example" en ".env".\n
+A la racine du projet, il faudra renommer le fichier ".env.example" en ".env". 
+<br/>
 A l'intérieur de ce fichier, se retrouvent les identifiants de connexion à la base de données. Veuillez les modifier selon votre environnement.
 </p>
 <h1>
@@ -48,7 +49,7 @@ Vous pouvez créer la structure de la base de données via la commande "php arti
 </li>
 <li>
 Par la suite, vous pouvez ajouter des données factices de test via la commande "php artisan db:seed" .
-\n
+<br/>
 NB : Dans ce cas, les identifiants de connexion de l'administrateur seront : email => aadmin@mail.ci, mot de passe => password.
 </li>
 </ul>
